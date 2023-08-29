@@ -1,14 +1,38 @@
-import React from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+
+import LoginPage from "./pages/login.page";
 
 import "./App.scss";
-import Login from "./login/login";
+import { useEffect } from "react";
+
+const queryClient = new QueryClient();
 
 function App() {
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+  console.log(token);
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token]);
+
   return (
-    <div className='App'>
-      <Login />
-      <header className='App-header'></header>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className='App'>
+        <Routes>
+          <Route path='/login' element={<LoginPage />} />
+        </Routes>
+      </div>
+    </QueryClientProvider>
   );
 }
 
