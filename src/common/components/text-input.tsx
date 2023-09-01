@@ -49,7 +49,7 @@ export default function TextInput({
         label={label}
         type={type}
         multiline={multiline}
-        rows={multiline ? 5 : 0}
+        rows={multiline ? 10 : 0}
       />
       <ValidateMesage error={error} rules={rules} label={label} />
     </div>

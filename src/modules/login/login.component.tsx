@@ -14,8 +14,19 @@ type FormValues = {
   password: string;
 };
 
+type ApiError = {
+  message: string;
+  response: {
+    data: {
+      message: string;
+      statusCode: number;
+    };
+  };
+};
+
 const Login = () => {
   const [openErrorSnackbar, setOpenErrorSnackbar] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const navigate = useNavigate();
   const { control, handleSubmit } = useForm<FormValues>();
@@ -23,9 +34,13 @@ const Login = () => {
     onSuccess: data => {
       const token = data.token;
       localStorage.setItem("token", token);
-      console.log(token);
     },
-    onError: () => {
+    onError: (error: ApiError) => {
+      if (error.response.data.statusCode === 401) {
+        setErrorMessage("Niepoprawne dane logowania");
+      } else {
+        setErrorMessage(error.message);
+      }
       setOpenErrorSnackbar(true);
     },
   });
@@ -50,8 +65,7 @@ const Login = () => {
           </p>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className='flex flex-col w-full'
-            action=''>
+            className='flex flex-col w-full'>
             <ThemeProvider theme={theme}>
               <TextInput
                 name='login'
@@ -81,7 +95,7 @@ const Login = () => {
       </div>
       <Snackbar
         open={openErrorSnackbar}
-        message={"Niepoprawne dane logowania"}
+        message={errorMessage}
         handleClose={() => setOpenErrorSnackbar(false)}
       />
     </div>

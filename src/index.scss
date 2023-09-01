@@ -14,3 +14,21 @@ body {
 .MuiFormControl-root {
   width: 100%;
 }
+
+@layer components {
+  .markdown-wrapper {
+    @apply whitespace-pre-wrap leading-4 break-words;
+
+    ul {
+      @apply list-disc ml-4 leading-4;
+    }
+
+    h1 {
+      @apply font-bold text-center uppercase bg-gray py-1;
+    }
+
+    h2 {
+      @apply font-bold uppercase;
+    }
+  }
+}
