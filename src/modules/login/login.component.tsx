@@ -30,7 +30,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const { control, handleSubmit } = useForm<FormValues>();
-  const { mutate, isLoading, isSuccess } = useMutation(login, {
+  const { mutate, isSuccess } = useMutation(login, {
     onSuccess: data => {
       const token = data.token;
       localStorage.setItem("token", token);

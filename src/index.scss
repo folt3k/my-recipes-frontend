@@ -15,6 +15,10 @@ body {
   width: 100%;
 }
 
+.autosize-textarea textarea {
+  min-height: 200px;
+}
+
 @layer components {
   .markdown-wrapper {
     @apply whitespace-pre-wrap leading-4 break-words;

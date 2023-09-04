@@ -1,4 +1,3 @@
-import Header from "../common/components/header.component";
 import Home from "../modules/home/home.component";
 
 const HomePage = () => {

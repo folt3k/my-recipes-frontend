@@ -1,11 +1,11 @@
 import { ThemeProvider } from "@emotion/react";
 import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
+
 import TextInput from "../../common/components/text-input";
 import { theme } from "../../common/utils/theme-for-provider";
-import { marked } from "marked";
 import { MarkedConverter } from "../../common/components/marked-converter";
-import { createMarkUp } from "../../common/helpers/create-mark-up";
+import AutoSizeTextInput from "../../common/components/auto-size-textarea.component";
 
 type FormValues = {
   recipeName: string;
@@ -43,8 +43,8 @@ const AddRecipeForm = () => {
             label='Składniki'
           />
           <div className='grid grid-cols-2 grid-rows-1 gap-x-2 h-auto'>
-            <TextInput
-              multiline={true}
+            <AutoSizeTextInput
+              type='textarea'
               name='methodOfPreparing'
               control={control}
               rules={{
