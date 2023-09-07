@@ -17,6 +17,7 @@ body {
 
 .autosize-textarea textarea {
   min-height: 200px;
+  line-height: 16px;
 }
 
 @layer components {
