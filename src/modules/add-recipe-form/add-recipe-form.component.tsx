@@ -1,48 +1,43 @@
 import { ThemeProvider } from "@emotion/react";
 import Button from "@mui/material/Button";
-import { useForm, useFieldArray } from "react-hook-form";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Checkbox, FormControlLabel } from "@mui/material";
 
 import TextInput from "../../common/components/text-input";
 import { theme } from "../../common/utils/theme-for-provider";
 import { MarkedConverter } from "../../common/components/marked-converter";
 import AutoSizeTextInput from "../../common/components/auto-size-textarea.component";
-import { Checkbox, FormControlLabel, IconButton } from "@mui/material";
 import IngredientsWithCategoryForm from "./ingredients-with-category-form/ingredients-with-category-form.component";
+import IngredientsForm from "./ingredient-form/ingredients-form.component";
+import ContentForm from "./content-form/content-form.component";
 
-type IngredientWithoutCategory = {
+type Ingredient = {
   name: string;
 };
 
-type IngredientsWithCategory = {
+type IngredientsCategory = {
   name: string;
-  items: IngredientWithoutCategory[];
+  items: Ingredient[];
 };
 
 export type FormValues = {
   name: string;
   category: string;
-  ingredients: Array<IngredientsWithCategory | IngredientWithoutCategory>;
+  ingredients: Array<IngredientsCategory>;
   content: string;
+  hasCategories: boolean;
+  showMarkedText: boolean;
 };
 
 const AddRecipeForm = () => {
-  const [ingredients, setIngredients] = useState<IngredientWithoutCategory[]>(
-    []
-  );
-  const [ingredientWithCategory, setIngredientsWithCategory] =
-    useState<boolean>(false);
   const form = useForm<FormValues>({
     defaultValues: {
+      hasCategories: false,
       ingredients: [{ name: "", items: [] }],
     },
   });
-  const contentToMarked = form.watch("content");
-
-  // const { fields, append, remove } = useFieldArray({
-  //   name: "ingredients.items",
-  //   control: form.control,
-  // });
+  const contentWatch = form.watch("content");
+  const hasCategoriesWatch = form.watch("hasCategories");
 
   const onSubmit = (body: FormValues) => {
     console.log(body);
@@ -55,40 +50,32 @@ const AddRecipeForm = () => {
       </h2>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <ThemeProvider theme={theme}>
-          <TextInput
-            name='name'
-            control={form.control}
-            rules={{ required: true }}
-            label='Nazwa przepisu'
-          />
-          <div className='flex-col'>
-            <h2 className='text-lg text-primary600 text-center mb-2'>
-              Dodaj składniki niezbędne do przygotowania przepisu
-            </h2>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={ingredientWithCategory}
-                  onClick={() => setIngredientsWithCategory(prev => !prev)}
-                />
-              }
-              label='Składniki z podziałem na kategorie'
-            />
-            <IngredientsWithCategoryForm form={form} />
-          </div>
-          <div className='grid grid-cols-2 grid-rows-1 gap-x-2 h-auto'>
-            <AutoSizeTextInput
-              name='content'
+          <div className='form-control'>
+            <TextInput
+              name='name'
               control={form.control}
-              rules={{
-                validate: undefined,
-              }}
-              label='Spsób przygotowania'
+              rules={{ required: true }}
+              label='Nazwa przepisu'
             />
-            <div className='pt-5'>
-              <MarkedConverter val={contentToMarked} />
-            </div>
           </div>
+          <div className='flex-col'>
+            <div className='form-control'>
+              <FormControlLabel
+                control={<Checkbox {...form.register("hasCategories")} />}
+                label='Składniki z podziałem na kategorie'
+              />
+            </div>
+            {hasCategoriesWatch ? (
+              <IngredientsWithCategoryForm form={form} />
+            ) : (
+              <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+                <div className='p-4 bg-gray-lighter rounded-lg'>
+                  <IngredientsForm form={form} categoryIndex={0} />
+                </div>
+              </div>
+            )}
+          </div>
+          <ContentForm form={form} contentWatch={contentWatch} />
           <div className='flex pt-3'>
             <div className='mr-2'>
               <Button

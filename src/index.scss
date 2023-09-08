@@ -15,6 +15,10 @@ body {
   width: 100%;
 }
 
+.MuiTextField-root {
+  margin: 0 !important;
+}
+
 .autosize-textarea textarea {
   min-height: 200px;
   line-height: 16px;
@@ -35,5 +39,9 @@ body {
     h2 {
       @apply font-bold uppercase;
     }
+  }
+
+  .form-control {
+    @apply my-4;
   }
 }

@@ -67,21 +67,25 @@ const Login = () => {
             onSubmit={handleSubmit(onSubmit)}
             className='flex flex-col w-full'>
             <ThemeProvider theme={theme}>
-              <TextInput
-                name='login'
-                control={control}
-                rules={{ required: true }}
-                label='Nazwa użytkownika'
-                color='primary'
-              />
-              <TextInput
-                name='password'
-                color='primary'
-                type='password'
-                label='Hasło'
-                control={control}
-                rules={{ required: true }}
-              />
+              <div className='my-3'>
+                <TextInput
+                  name='login'
+                  control={control}
+                  rules={{ required: true }}
+                  label='Nazwa użytkownika'
+                  color='primary'
+                />
+              </div>
+              <div className='my-3'>
+                <TextInput
+                  name='password'
+                  color='primary'
+                  type='password'
+                  label='Hasło'
+                  control={control}
+                  rules={{ required: true }}
+                />
+              </div>
               <Button
                 type='submit'
                 sx={{ mt: 2 }}

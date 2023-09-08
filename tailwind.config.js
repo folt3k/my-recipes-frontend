@@ -32,9 +32,10 @@ module.exports = {
       orange: "#ff7849",
       green: "#13ce66",
       yellow: "#ffc82c",
-      "gray-dark": "#273444",
+      "gray-dark": "#939393",
       gray: "#eee",
       "gray-light": "#d3dce6",
+      "gray-lighter": "#f9f9f9",
     },
     fontFamily: {
       sans: ["Graphik", "sans-serif"],
