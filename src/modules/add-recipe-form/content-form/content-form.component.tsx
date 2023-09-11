@@ -15,27 +15,30 @@ const ContentForm = ({ form, contentWatch }: Props) => {
   const showMarkedText = form.watch("showMarkedText");
 
   return (
-    <div className='grid md:grid-cols-2 grid-rows-1 gap-x-2 h-auto mt-14'>
-      <AutoSizeTextInput
-        name='content'
-        control={form.control}
-        rules={{
-          validate: undefined,
-        }}
-        label='Spsób przygotowania'
-      />
-      <div className='md:hidden'>
-        <FormControlLabel
-          control={<Checkbox {...form.register("showMarkedText")} />}
-          label='Pokaż przekonwertowany text'
+    <div className='form-section'>
+      <h2 className='form-section-title'>Sposób przygotowania</h2>
+      <div className='grid md:grid-cols-2 grid-rows-1 gap-x-2 h-auto'>
+        <AutoSizeTextInput
+          name='content'
+          control={form.control}
+          rules={{
+            validate: undefined,
+          }}
+          label='Wpisz spsób przygotowania'
         />
-      </div>
-      <div
-        className={classNames("pt-2  md:block", {
-          block: showMarkedText,
-          hidden: !showMarkedText,
-        })}>
-        <MarkedConverter val={contentWatch} />
+        <div className='md:hidden'>
+          <FormControlLabel
+            control={<Checkbox {...form.register("showMarkedText")} />}
+            label='Pokaż przekonwertowany text'
+          />
+        </div>
+        <div
+          className={classNames("pt-2  md:block", {
+            block: showMarkedText,
+            hidden: !showMarkedText,
+          })}>
+          <MarkedConverter val={contentWatch} />
+        </div>
       </div>
     </div>
   );

@@ -44,4 +44,12 @@ body {
   .form-control {
     @apply my-4;
   }
+
+  .form-section {
+    @apply mb-16;
+  }
+
+  .form-section-title {
+    @apply mb-4 text-xl text-primary;
+  }
 }

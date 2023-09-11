@@ -24,7 +24,7 @@ const IngredientsWithCategoryForm = ({ form }: Props) => {
             append({ name: "", items: [] });
           }}
           variant='outlined'>
-          Dodaj kategorię składników
+          Dodaj kategorię
         </Button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 items-center'">

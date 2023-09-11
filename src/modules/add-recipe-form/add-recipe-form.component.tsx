@@ -10,6 +10,7 @@ import AutoSizeTextInput from "../../common/components/auto-size-textarea.compon
 import IngredientsWithCategoryForm from "./ingredients-with-category-form/ingredients-with-category-form.component";
 import IngredientsForm from "./ingredient-form/ingredients-form.component";
 import ContentForm from "./content-form/content-form.component";
+import ImagesForm from "./images-form/images-form.component";
 
 type Ingredient = {
   name: string;
@@ -20,10 +21,15 @@ type IngredientsCategory = {
   items: Ingredient[];
 };
 
+type Image = {
+  url: string;
+};
+
 export type FormValues = {
   name: string;
   category: string;
   ingredients: Array<IngredientsCategory>;
+  images: Array<Image>;
   content: string;
   hasCategories: boolean;
   showMarkedText: boolean;
@@ -34,6 +40,7 @@ const AddRecipeForm = () => {
     defaultValues: {
       hasCategories: false,
       ingredients: [{ name: "", items: [] }],
+      images: [{ url: "" }],
     },
   });
   const contentWatch = form.watch("content");
@@ -50,19 +57,25 @@ const AddRecipeForm = () => {
       </h2>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <ThemeProvider theme={theme}>
-          <div className='form-control'>
-            <TextInput
-              name='name'
-              control={form.control}
-              rules={{ required: true }}
-              label='Nazwa przepisu'
-            />
-          </div>
-          <div className='flex-col'>
+          <div className='form-section'>
+            <h2 className='form-section-title'>Nazwa </h2>
             <div className='form-control'>
+              <TextInput
+                name='name'
+                control={form.control}
+                rules={{ required: true }}
+                label='Wpisz nazwę przepisu'
+              />
+            </div>
+          </div>
+          <ImagesForm form={form} />
+          <div className='flex-col form-section'>
+            <h2 className='form-section-title'>Składniki</h2>
+
+            <div className='mb-4'>
               <FormControlLabel
                 control={<Checkbox {...form.register("hasCategories")} />}
-                label='Składniki z podziałem na kategorie'
+                label='Podział na kategorie'
               />
             </div>
             {hasCategoriesWatch ? (
