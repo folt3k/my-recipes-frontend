@@ -5,6 +5,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import TextInput from "../../../common/components/text-input";
 import { FormValues } from "../add-recipe-form.component";
 import IngredientsForm from "../ingredient-form/ingredients-form.component";
+import { AddInputOnEnterEvent } from "../../../common/helpers/add-input-on-enter";
 
 type Props = {
   form: UseFormReturn<FormValues, any, any>;
@@ -18,19 +19,10 @@ const IngredientsWithCategoryForm = ({ form }: Props) => {
 
   return (
     <div className='flex-col mb-2'>
-      <div className='flex justify-end mb-4'>
-        <Button
-          onClick={() => {
-            append({ name: "", items: [] });
-          }}
-          variant='outlined'>
-          Dodaj kategorię
-        </Button>
-      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 items-center'">
         {fields.map((field, index) => {
           return (
-            <div className='mb-4 p-3  bg-gray-lighter rounded-lg'>
+            <div className='mb-4 p-3  bg-gray rounded-lg'>
               <div className='flex items-center justify-end mb-2'>
                 <IconButton
                   onClick={() => {
@@ -42,6 +34,11 @@ const IngredientsWithCategoryForm = ({ form }: Props) => {
                 </IconButton>
               </div>
               <div
+                onKeyDown={event => {
+                  AddInputOnEnterEvent(event, () => {
+                    append({ name: "", items: [] });
+                  });
+                }}
                 key={field.id}
                 className='flex items-center justify-center mb-4'>
                 <TextInput
@@ -55,6 +52,15 @@ const IngredientsWithCategoryForm = ({ form }: Props) => {
             </div>
           );
         })}
+      </div>
+      <div>
+        <Button
+          onClick={() => {
+            append({ name: "", items: [] });
+          }}
+          variant='contained'>
+          Dodaj kategorię
+        </Button>
       </div>
     </div>
   );

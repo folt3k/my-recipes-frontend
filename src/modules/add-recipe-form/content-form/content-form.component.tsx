@@ -21,9 +21,7 @@ const ContentForm = ({ form, contentWatch }: Props) => {
         <AutoSizeTextInput
           name='content'
           control={form.control}
-          rules={{
-            validate: undefined,
-          }}
+          rules={{ required: true }}
           label='Wpisz spsób przygotowania'
         />
         <div className='md:hidden'>

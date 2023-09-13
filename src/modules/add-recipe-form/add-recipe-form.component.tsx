@@ -5,23 +5,21 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 
 import TextInput from "../../common/components/text-input";
 import { theme } from "../../common/utils/theme-for-provider";
-import { MarkedConverter } from "../../common/components/marked-converter";
-import AutoSizeTextInput from "../../common/components/auto-size-textarea.component";
 import IngredientsWithCategoryForm from "./ingredients-with-category-form/ingredients-with-category-form.component";
 import IngredientsForm from "./ingredient-form/ingredients-form.component";
 import ContentForm from "./content-form/content-form.component";
 import ImagesForm from "./images-form/images-form.component";
 
-type Ingredient = {
+export type Ingredient = {
   name: string;
 };
 
-type IngredientsCategory = {
+export type IngredientsCategory = {
   name: string;
   items: Ingredient[];
 };
 
-type Image = {
+export type Image = {
   url: string;
 };
 
@@ -52,7 +50,7 @@ const AddRecipeForm = () => {
 
   return (
     <div className='container py-6'>
-      <h2 className='text-primary600 text-2xl font-bold pb-2 text-center'>
+      <h2 className='text-primary600 text-3xl font-bold mb-5 text-center'>
         Dodaj nowy przepis
       </h2>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -71,7 +69,6 @@ const AddRecipeForm = () => {
           <ImagesForm form={form} />
           <div className='flex-col form-section'>
             <h2 className='form-section-title'>Składniki</h2>
-
             <div className='mb-4'>
               <FormControlLabel
                 control={<Checkbox {...form.register("hasCategories")} />}

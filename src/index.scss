@@ -46,7 +46,7 @@ body {
   }
 
   .form-section {
-    @apply mb-16;
+    @apply mb-16 rounded-md bg-gray-lighter p-6;
   }
 
   .form-section-title {
