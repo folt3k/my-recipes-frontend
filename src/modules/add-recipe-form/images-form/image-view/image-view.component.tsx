@@ -1,12 +1,10 @@
-import { Image } from "../../add-recipe-form.component";
+import { Image } from "../../add-recipe.types";
 
 type Props = {
   image: Image;
 };
 
 const ImageView = ({ image }: Props) => {
-  console.log(image);
-
   return (
     <>
       <div className='h-20 w-20 ml-2 	'>

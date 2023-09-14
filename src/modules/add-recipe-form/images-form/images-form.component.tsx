@@ -28,7 +28,7 @@ const ImagesForm = ({ form }: Props) => {
               key={field.id}
               onKeyDown={event => {
                 AddInputOnEnterEvent(event, () => {
-                  append({ url: "" }, { shouldFocus: true });
+                  append({ url: "" });
                 });
               }}
               className='flex items-center justify-center mb-4'>
@@ -44,7 +44,8 @@ const ImagesForm = ({ form }: Props) => {
                   remove(index);
                 }}
                 className='flex items-center justify-center m-1  '
-                color='secondary'>
+                color='secondary'
+                tabIndex={-1}>
                 <ClearIcon />
               </IconButton>
             </div>
@@ -54,12 +55,10 @@ const ImagesForm = ({ form }: Props) => {
       <div className='flex mb-4'>
         <Button
           onClick={() => {
-            append(
-              { url: "" },
-              { shouldFocus: true, focusIndex: fields.length - 1 }
-            );
+            append({ url: "" });
           }}
-          variant='contained'>
+          variant='contained'
+          tabIndex={-1}>
           Dodaj url zdjęcia
         </Button>
       </div>

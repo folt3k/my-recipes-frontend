@@ -27,17 +27,14 @@ export default function TextInput({
   type = "text",
 }: Props) {
   const {
-    field: { onChange, value },
-    formState: { errors },
+    field: { onChange, value, ref },
+    fieldState: { error },
   } = useController({
     name,
     control,
     rules,
     defaultValue: "",
   });
-
-  const error = errors[name];
-
   return (
     <div className='w-full'>
       <TextField
@@ -50,6 +47,7 @@ export default function TextInput({
         type={type}
         multiline={multiline}
         rows={multiline ? 10 : 0}
+        inputRef={ref}
       />
       <ValidateMesage error={error} rules={rules} label={label} />
     </div>

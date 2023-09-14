@@ -9,19 +9,8 @@ import IngredientsWithCategoryForm from "./ingredients-with-category-form/ingred
 import IngredientsForm from "./ingredient-form/ingredients-form.component";
 import ContentForm from "./content-form/content-form.component";
 import ImagesForm from "./images-form/images-form.component";
-
-export type Ingredient = {
-  name: string;
-};
-
-export type IngredientsCategory = {
-  name: string;
-  items: Ingredient[];
-};
-
-export type Image = {
-  url: string;
-};
+import { addRecipe } from "./add-recipe.api";
+import { IngredientsCategory, Image, Ingredient } from "./add-recipe.types";
 
 export type FormValues = {
   name: string;
@@ -44,8 +33,30 @@ const AddRecipeForm = () => {
   const contentWatch = form.watch("content");
   const hasCategoriesWatch = form.watch("hasCategories");
 
-  const onSubmit = (body: FormValues) => {
-    console.log(body);
+  const onSubmit = async (body: FormValues) => {
+    const { content, name, ingredients, images } = body;
+
+    let mappedIngredients: Ingredient[] | IngredientsCategory[];
+
+    if (hasCategoriesWatch) {
+      mappedIngredients = ingredients;
+    } else {
+      mappedIngredients = ingredients
+        .map(ingredient =>
+          ingredient.items.map(item => ({
+            name: item.name,
+          }))
+        )
+        .flat();
+    }
+    const resp = await addRecipe({
+      content,
+      name,
+      images,
+      ingredients: mappedIngredients,
+      tags: [],
+    });
+    console.log(resp);
   };
 
   return (

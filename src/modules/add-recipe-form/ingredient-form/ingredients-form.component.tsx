@@ -41,6 +41,7 @@ const IngredientsForm = ({ form, categoryIndex }: Props) => {
             </div>
             <div className='flex items-center justify-center ml-1 h-full'>
               <IconButton
+                tabIndex={-1}
                 onClick={() => {
                   remove(index);
                 }}
@@ -52,7 +53,10 @@ const IngredientsForm = ({ form, categoryIndex }: Props) => {
           </div>
         );
       })}
-      <Button onClick={() => append({ name: "" })} variant='contained'>
+      <Button
+        tabIndex={-1}
+        onClick={() => append({ name: "" })}
+        variant='contained'>
         Dodaj składnik
       </Button>
     </div>
