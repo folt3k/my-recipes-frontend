@@ -11,6 +11,7 @@ import ContentForm from "./content-form/content-form.component";
 import ImagesForm from "./images-form/images-form.component";
 import { addRecipe } from "./add-recipe.api";
 import { IngredientsCategory, Image, Ingredient } from "./add-recipe.types";
+import { useNavigate } from "react-router-dom";
 
 export type FormValues = {
   name: string;
@@ -32,10 +33,10 @@ const AddRecipeForm = () => {
   });
   const contentWatch = form.watch("content");
   const hasCategoriesWatch = form.watch("hasCategories");
+  const navigate = useNavigate();
 
   const onSubmit = async (body: FormValues) => {
     const { content, name, ingredients, images } = body;
-
     let mappedIngredients: Ingredient[] | IngredientsCategory[];
 
     if (hasCategoriesWatch) {
@@ -56,7 +57,9 @@ const AddRecipeForm = () => {
       ingredients: mappedIngredients,
       tags: [],
     });
-    console.log(resp);
+
+    // const recipeId = resp.id;
+    // navigate(`/recipe/${recipeId}`);
   };
 
   return (
@@ -108,7 +111,13 @@ const AddRecipeForm = () => {
               </Button>
             </div>
             <div>
-              <Button variant='outlined'>Anuluj</Button>
+              <Button
+                onClick={() => {
+                  navigate("/");
+                }}
+                variant='outlined'>
+                Anuluj
+              </Button>
             </div>
           </div>
         </ThemeProvider>

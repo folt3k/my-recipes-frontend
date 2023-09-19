@@ -9,6 +9,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  width: 100vw;
 }
 
 .MuiFormControl-root {
@@ -17,6 +19,10 @@ body {
 
 .MuiTextField-root {
   margin: 0 !important;
+}
+
+.css-1ri6ub7-MuiPaper-root-MuiCard-root {
+  width: 100%;
 }
 
 .autosize-textarea textarea {

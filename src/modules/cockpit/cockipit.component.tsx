@@ -5,7 +5,7 @@ import Home from "../home/home.component";
 
 const Cockpit = () => {
   return (
-    <div>
+    <div className='h-full'>
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
