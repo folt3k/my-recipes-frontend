@@ -5,15 +5,21 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   name: string;
   imageUrl: string;
+  id: string;
 };
 
-const RecipeCart = ({ name, imageUrl }: Props) => {
+const RecipeCart = ({ name, imageUrl, id }: Props) => {
+  const navigate = useNavigate();
   return (
-    <Card>
+    <Card
+      onClick={() => {
+        navigate(`recipes/${id}`);
+      }}>
       <CardActionArea>
         <CardMedia component='div'>
           <div

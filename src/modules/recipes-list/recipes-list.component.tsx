@@ -34,7 +34,11 @@ const RecipesList = () => {
       loader={<p>Ładowanie...</p>}>
       {recipes?.map(recipe => (
         <div key={recipe.id}>
-          <RecipeCart name={recipe.name} imageUrl={recipe.images[0].url} />
+          <RecipeCart
+            name={recipe.name}
+            imageUrl={recipe.images[0].url}
+            id={recipe.id}
+          />
         </div>
       ))}
     </InfiniteScroll>

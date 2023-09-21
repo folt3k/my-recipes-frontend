@@ -7,13 +7,10 @@ type Props = {
 const ImageView = ({ image }: Props) => {
   return (
     <>
-      <div className='h-20 w-20 ml-2 	'>
-        <img
-          className='w-full h-full rounded-md'
-          src={image.url}
-          alt={image.url !== "" ? "food-foto" : ""}
-        />
-      </div>
+      {/* <div className='w-full h-96 bg-no-repeat  rounded shadow-lg' /> */}
+      <div
+        className='h-[55px] w-[80px] ml-2 bg-cover bg-center rounded-md'
+        style={{ backgroundImage: "url(" + image?.url + ")" }}></div>
     </>
   );
 };

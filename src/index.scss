@@ -13,6 +13,14 @@ body {
   width: 100vw;
 }
 
+#root {
+  height: 100%;
+}
+
+.App {
+  height: 100%;
+}
+
 .MuiFormControl-root {
   width: 100%;
 }
@@ -39,7 +47,7 @@ body {
     }
 
     h1 {
-      @apply font-bold text-center uppercase bg-gray py-1;
+      @apply font-bold text-center uppercase bg-gray py-2;
     }
 
     h2 {
