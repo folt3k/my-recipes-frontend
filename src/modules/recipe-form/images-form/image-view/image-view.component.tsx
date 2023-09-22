@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Image as Image1 } from "../../add-recipe.types";
+import { Image as Image1 } from "../../../add-recipe/add-recipe.types";
 
 type Props = {
   image: { url: string };

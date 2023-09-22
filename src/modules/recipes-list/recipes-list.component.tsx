@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import { getRecipes } from "./recipe-list.api";
-import { Recipe } from "../add-recipe-form/add-recipe.types";
+import { Recipe } from "../add-recipe/add-recipe.types";
 import RecipeCart from "./recipe-cart/recipe-cart.component";
 
 const RecipesList = () => {

@@ -1,6 +1,6 @@
 import http from "../../common/api/http";
 import { PaginationParams } from "../../common/types/pagination";
-import { Recipe } from "../add-recipe-form/add-recipe.types";
+import { Recipe } from "../add-recipe/add-recipe.types";
 
 export const getRecipes = (
   params: PaginationParams

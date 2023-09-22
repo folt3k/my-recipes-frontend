@@ -5,14 +5,13 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 
 import TextInput from "../../common/components/text-input";
 import { theme } from "../../common/utils/theme-for-provider";
-import IngredientsWithCategoryForm from "./ingredients-with-category-form/ingredients-with-category-form.component";
+import { IngredientsCategory } from "../add-recipe/add-recipe.types";
+import ImagesForm from "./images-form/images-form.component";
 import IngredientsForm from "./ingredient-form/ingredients-form.component";
 import ContentForm from "./content-form/content-form.component";
-import ImagesForm from "./images-form/images-form.component";
-import { addRecipe } from "./add-recipe.api";
-import { IngredientsCategory, Image, Ingredient } from "./add-recipe.types";
+import IngredientsWithCategoryForm from "./ingredients-with-category-form/ingredients-with-category-form.component";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export type FormValues = {
   name: string;
@@ -25,7 +24,12 @@ export type FormValues = {
   showMarkedText: boolean;
 };
 
-const AddRecipeForm = () => {
+type Props = {
+  onSubmit: (body: FormValues) => Promise<void>;
+  initData?: FormValues | undefined;
+};
+
+const RecipeForm = ({ onSubmit, initData }: Props) => {
   const form = useForm<FormValues>({
     defaultValues: {
       hasCategories: false,
@@ -33,38 +37,23 @@ const AddRecipeForm = () => {
       images: [{ url: "" }],
     },
   });
+
   const contentWatch = form.watch("content");
   const hasCategoriesWatch = form.watch("hasCategories");
   const navigate = useNavigate();
 
-  const onSubmit = async (body: FormValues) => {
-    const { content, name, ingredients, images, description } = body;
-    let mappedIngredients: Ingredient[] | IngredientsCategory[];
-
-    if (hasCategoriesWatch) {
-      mappedIngredients = ingredients;
+  useEffect(() => {
+    if (initData) {
+      form.setValue("name", initData.name);
+      form.setValue("description", initData.description);
+      form.setValue("images", initData.images);
+      form.setValue("ingredients", initData.ingredients);
+      form.setValue("content", initData.content);
+      form.setValue("hasCategories", initData.hasCategories);
     } else {
-      mappedIngredients = ingredients
-        .map(ingredient =>
-          ingredient.items.map(item => ({
-            name: item.name,
-          }))
-        )
-        .flat();
+      form.reset();
     }
-
-    const resp = await addRecipe({
-      content,
-      name,
-      description,
-      images,
-      ingredients: mappedIngredients,
-      tags: [],
-    });
-    console.log(resp);
-    const recipeId = resp.id;
-    navigate(`/recipes/${recipeId}`);
-  };
+  }, []);
 
   return (
     <div className='container py-6'>
@@ -138,4 +127,4 @@ const AddRecipeForm = () => {
   );
 };
 
-export default AddRecipeForm;
+export default RecipeForm;

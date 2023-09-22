@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { MarkedConverter } from "../../common/components/marked-converter";
 import { theme } from "../../common/utils/theme-for-provider";
-import { Recipe } from "../add-recipe-form/add-recipe.types";
+import { Recipe } from "../add-recipe/add-recipe.types";
 import { getRecipeDetails } from "./recipe-details.api";
 
 const RecipeDetails = () => {
@@ -41,7 +41,7 @@ const RecipeDetails = () => {
             </div>
             <div className='mb-4 flex'>
               <div className='mr-2'>
-                <Button variant='outlined'>Edytuj</Button>
+                <Button variant='contained'>Edytuj</Button>
               </div>
               <div>
                 <Button variant='outlined'>Usuń</Button>

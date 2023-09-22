@@ -3,7 +3,7 @@ import { useFieldArray, UseFormReturn } from "react-hook-form";
 import ClearIcon from "@mui/icons-material/Clear";
 
 import TextInput from "../../../common/components/text-input";
-import { FormValues } from "../add-recipe-form.component";
+import { FormValues } from "../../add-recipe/add-recipe-form.component";
 import IngredientsForm from "../ingredient-form/ingredients-form.component";
 import { AddInputOnEnterEvent } from "../../../common/helpers/add-input-on-enter";
 
