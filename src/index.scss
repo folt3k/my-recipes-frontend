@@ -35,15 +35,15 @@ body {
 
 .autosize-textarea textarea {
   min-height: 200px;
-  line-height: 16px;
+  line-height: 22px;
 }
 
 @layer components {
   .markdown-wrapper {
-    @apply whitespace-pre-wrap leading-4 break-words;
+    @apply whitespace-pre-wrap break-words;
 
     ul {
-      @apply list-disc ml-4 leading-4;
+      @apply list-disc ml-2;
     }
 
     h1 {

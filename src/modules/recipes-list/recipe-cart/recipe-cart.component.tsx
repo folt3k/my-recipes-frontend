@@ -23,11 +23,11 @@ const RecipeCart = ({ name, imageUrl, id }: Props) => {
       <CardActionArea>
         <CardMedia component='div'>
           <div
-            className='w-full h-56 bg-no-repeat bg-cover'
-            style={{ backgroundImage: "url(" + imageUrl + ")" }}
+            className='w-full h-56 bg-no-repeat bg-cover bg-center'
+            style={{ backgroundImage: `url("${imageUrl}")` }}
           />
         </CardMedia>
-        <CardContent className='capitalize text-bold'>
+        <CardContent className='text-bold'>
           <Typography gutterBottom variant='h6' component='div'>
             {name}
           </Typography>

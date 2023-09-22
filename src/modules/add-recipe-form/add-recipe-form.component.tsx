@@ -12,12 +12,14 @@ import ImagesForm from "./images-form/images-form.component";
 import { addRecipe } from "./add-recipe.api";
 import { IngredientsCategory, Image, Ingredient } from "./add-recipe.types";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export type FormValues = {
   name: string;
+  description: string;
   category: string;
   ingredients: Array<IngredientsCategory>;
-  images: Array<Image>;
+  images: Array<{ url: string }>;
   content: string;
   hasCategories: boolean;
   showMarkedText: boolean;
@@ -36,7 +38,7 @@ const AddRecipeForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (body: FormValues) => {
-    const { content, name, ingredients, images } = body;
+    const { content, name, ingredients, images, description } = body;
     let mappedIngredients: Ingredient[] | IngredientsCategory[];
 
     if (hasCategoriesWatch) {
@@ -50,16 +52,18 @@ const AddRecipeForm = () => {
         )
         .flat();
     }
+
     const resp = await addRecipe({
       content,
       name,
+      description,
       images,
       ingredients: mappedIngredients,
       tags: [],
     });
-
-    // const recipeId = resp.id;
-    // navigate(`/recipe/${recipeId}`);
+    console.log(resp);
+    const recipeId = resp.id;
+    navigate(`/recipes/${recipeId}`);
   };
 
   return (
@@ -70,13 +74,21 @@ const AddRecipeForm = () => {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <ThemeProvider theme={theme}>
           <div className='form-section'>
-            <h2 className='form-section-title'>Nazwa </h2>
+            <h2 className='form-section-title'>Podstawowe informacje </h2>
             <div className='form-control'>
               <TextInput
                 name='name'
                 control={form.control}
                 rules={{ required: true }}
                 label='Wpisz nazwę przepisu'
+              />
+            </div>
+            <div className='form-control'>
+              <TextInput
+                name='description'
+                control={form.control}
+                rules={{ required: false }}
+                label='Wpisz krótki opis przepisu'
               />
             </div>
           </div>

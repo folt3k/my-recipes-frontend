@@ -36,7 +36,7 @@ const RecipesList = () => {
         <div key={recipe.id}>
           <RecipeCart
             name={recipe.name}
-            imageUrl={recipe.images[0].url}
+            imageUrl={recipe.images[0].base64}
             id={recipe.id}
           />
         </div>

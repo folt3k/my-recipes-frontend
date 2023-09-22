@@ -8,8 +8,9 @@ import {
 
 export const addRecipe = (body: {
   name: string;
+  description: string;
   content: string;
   ingredients: Array<IngredientsCategory | Ingredient>;
-  images: Image[];
+  images: Array<{ url: string }>;
   tags: any[];
 }): Promise<Recipe> => http.post("recipes", body).then(res => res.data);
