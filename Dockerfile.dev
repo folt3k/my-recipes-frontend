@@ -1,0 +1,14 @@
+FROM node:18.16-alpine
+
+WORKDIR /app
+
+WORKDIR /home/app
+COPY . /home/app
+
+ENV REACT_APP_API_URL=http://localhost:3001
+
+RUN rm -rf node_modules
+RUN npm cache clean --force
+RUN npm install
+
+CMD ["npm", "start"]
