@@ -1,0 +1,15 @@
+FROM node:18.16-alpine
+
+WORKDIR /app
+
+WORKDIR /home/app
+COPY . /home/app
+
+ENV REACT_APP_API_URL=${REACT_APP_API_URL}
+
+RUN rm -rf node_modules
+RUN npm cache clean --force
+RUN npm install
+RUN npm run build
+
+CMD ["daemon off;"]
