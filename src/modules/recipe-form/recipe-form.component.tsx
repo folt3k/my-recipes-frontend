@@ -5,7 +5,7 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 
 import TextInput from "../../common/components/text-input";
 import { theme } from "../../common/utils/theme-for-provider";
-import { IngredientsCategory } from "../add-recipe/add-recipe.types";
+import { IngredientsCategory, Recipe } from "../add-recipe/add-recipe.types";
 import ImagesForm from "./images-form/images-form.component";
 import IngredientsForm from "./ingredient-form/ingredients-form.component";
 import ContentForm from "./content-form/content-form.component";
@@ -26,7 +26,7 @@ export type FormValues = {
 
 type Props = {
   onSubmit: (body: FormValues) => Promise<void>;
-  initData?: FormValues | undefined;
+  initData?: FormValues;
 };
 
 const RecipeForm = ({ onSubmit, initData }: Props) => {
@@ -43,17 +43,21 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(initData);
     if (initData) {
       form.setValue("name", initData.name);
       form.setValue("description", initData.description);
-      form.setValue("images", initData.images);
+      form.setValue(
+        "images",
+        initData.images.map(image => ({ url: image.url }))
+      );
       form.setValue("ingredients", initData.ingredients);
       form.setValue("content", initData.content);
       form.setValue("hasCategories", initData.hasCategories);
     } else {
       form.reset();
     }
-  }, []);
+  }, [initData]);
 
   return (
     <div className='container py-6'>

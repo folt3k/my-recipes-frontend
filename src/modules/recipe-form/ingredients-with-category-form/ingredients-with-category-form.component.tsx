@@ -3,15 +3,18 @@ import { useFieldArray, UseFormReturn } from "react-hook-form";
 import ClearIcon from "@mui/icons-material/Clear";
 
 import TextInput from "../../../common/components/text-input";
-import { FormValues } from "../../add-recipe/add-recipe-form.component";
+import { FormValues } from "../../add-recipe/add-recipe.component";
 import IngredientsForm from "../ingredient-form/ingredients-form.component";
 import { AddInputOnEnterEvent } from "../../../common/helpers/add-input-on-enter";
+import { useEffect } from "react";
+import { IngredientsCategory } from "../../add-recipe/add-recipe.types";
 
 type Props = {
   form: UseFormReturn<FormValues, any, any>;
+  initIngreadients?: IngredientsCategory[];
 };
 
-const IngredientsWithCategoryForm = ({ form }: Props) => {
+const IngredientsWithCategoryForm = ({ form, initIngreadients }: Props) => {
   const { fields, append, remove } = useFieldArray({
     name: "ingredients",
     control: form.control,

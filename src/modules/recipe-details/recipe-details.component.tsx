@@ -1,6 +1,6 @@
 import { Button, ThemeProvider } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { MarkedConverter } from "../../common/components/marked-converter";
 import { theme } from "../../common/utils/theme-for-provider";
 import { Recipe } from "../add-recipe/add-recipe.types";
@@ -10,6 +10,7 @@ const RecipeDetails = () => {
   const [recipe, setRecipe] = useState<Recipe>();
   const location = useLocation();
   const id = location.pathname.slice(9);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getData();
@@ -41,7 +42,11 @@ const RecipeDetails = () => {
             </div>
             <div className='mb-4 flex'>
               <div className='mr-2'>
-                <Button variant='contained'>Edytuj</Button>
+                <Button
+                  onClick={() => navigate(`/edit-recipe/${id}`)}
+                  variant='contained'>
+                  Edytuj
+                </Button>
               </div>
               <div>
                 <Button variant='outlined'>Usuń</Button>

@@ -14,7 +14,7 @@ export type FormValues = {
   showMarkedText: boolean;
 };
 
-const AddRecipeForm = () => {
+const AddRecipe = () => {
   const navigate = useNavigate();
 
   const onSubmit = async (body: FormValues) => {
@@ -49,4 +49,4 @@ const AddRecipeForm = () => {
   return <RecipeForm onSubmit={onSubmit} />;
 };
 
-export default AddRecipeForm;
+export default AddRecipe;
