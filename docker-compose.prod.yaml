@@ -4,3 +4,5 @@ services:
     container_name: MyRecipesFrontendApp
     build:
       dockerfile: ./Dockerfile.prod
+    ports:
+      - 3000:80
