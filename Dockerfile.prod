@@ -5,8 +5,6 @@ WORKDIR /app
 WORKDIR /home/app
 COPY . /home/app
 
-ENV REACT_APP_API_URL=${REACT_APP_API_URL}
-
 RUN rm -rf node_modules
 RUN npm cache clean --force
 RUN npm install
@@ -14,6 +12,7 @@ RUN npm run build
 
 FROM nginx:1.25.2-alpine
 
+COPY ./config/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /home/app/build /usr/share/nginx/html
 EXPOSE 80
 
