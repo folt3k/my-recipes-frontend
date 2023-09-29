@@ -8,7 +8,7 @@ export type IngredientsCategory = {
 };
 
 export type Image = {
-  url: string;
+  base64: string;
 };
 
 export type Recipe = {
@@ -16,7 +16,8 @@ export type Recipe = {
   createdAt: string;
   id: string;
   images: Image[];
-  ingredients: IngredientsCategory[] | Ingredient[];
+  ingredients: IngredientsCategory[];
   name: string;
+  description: string;
   updatedAt: string;
 };

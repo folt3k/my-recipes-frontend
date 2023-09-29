@@ -4,7 +4,7 @@ import { useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import AutoSizeTextInput from "../../../common/components/auto-size-textarea.component";
 import { MarkedConverter } from "../../../common/components/marked-converter";
-import { FormValues } from "../add-recipe-form.component";
+import { FormValues } from "../../add-recipe/add-recipe.component";
 
 type Props = {
   form: UseFormReturn<FormValues, any, any>;

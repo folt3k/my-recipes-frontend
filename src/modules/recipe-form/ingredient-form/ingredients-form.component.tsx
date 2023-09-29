@@ -3,7 +3,7 @@ import { useFieldArray, UseFormReturn } from "react-hook-form";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import TextInput from "../../../common/components/text-input";
-import { FormValues } from "../add-recipe-form.component";
+import { FormValues } from "../../add-recipe/add-recipe.component";
 import { AddInputOnEnterEvent } from "../../../common/helpers/add-input-on-enter";
 
 type Props = {

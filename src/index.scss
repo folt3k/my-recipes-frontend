@@ -9,6 +9,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  width: 100vw;
+}
+
+#root {
+  height: 100%;
+}
+
+.App {
+  height: 100%;
 }
 
 .MuiFormControl-root {
@@ -19,21 +29,25 @@ body {
   margin: 0 !important;
 }
 
+.css-1ri6ub7-MuiPaper-root-MuiCard-root {
+  width: 100%;
+}
+
 .autosize-textarea textarea {
   min-height: 200px;
-  line-height: 16px;
+  line-height: 22px;
 }
 
 @layer components {
   .markdown-wrapper {
-    @apply whitespace-pre-wrap leading-4 break-words;
+    @apply whitespace-pre-wrap break-words;
 
     ul {
-      @apply list-disc ml-4 leading-4;
+      @apply list-disc ml-2;
     }
 
     h1 {
-      @apply font-bold text-center uppercase bg-gray py-1;
+      @apply font-bold text-center uppercase bg-gray py-2;
     }
 
     h2 {

@@ -3,15 +3,16 @@ import { useFieldArray, UseFormReturn } from "react-hook-form";
 import TextInput from "../../../common/components/text-input";
 import ClearIcon from "@mui/icons-material/Clear";
 
-import { FormValues } from "../add-recipe-form.component";
+import { FormValues } from "../../add-recipe/add-recipe.component";
 import ImageView from "./image-view/image-view.component";
 import { AddInputOnEnterEvent } from "../../../common/helpers/add-input-on-enter";
+import React from "react";
 
 type Props = {
   form: UseFormReturn<FormValues, any, any>;
 };
 
-const ImagesForm = ({ form }: Props) => {
+const ImagesForm = React.forwardRef(({ form }: Props) => {
   const { fields, append, remove } = useFieldArray({
     name: "images",
     control: form.control,
@@ -64,6 +65,6 @@ const ImagesForm = ({ form }: Props) => {
       </div>
     </div>
   );
-};
+});
 
 export default ImagesForm;

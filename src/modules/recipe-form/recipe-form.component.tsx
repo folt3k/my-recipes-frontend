@@ -5,24 +5,31 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 
 import TextInput from "../../common/components/text-input";
 import { theme } from "../../common/utils/theme-for-provider";
-import IngredientsWithCategoryForm from "./ingredients-with-category-form/ingredients-with-category-form.component";
+import { IngredientsCategory, Recipe } from "../add-recipe/add-recipe.types";
+import ImagesForm from "./images-form/images-form.component";
 import IngredientsForm from "./ingredient-form/ingredients-form.component";
 import ContentForm from "./content-form/content-form.component";
-import ImagesForm from "./images-form/images-form.component";
-import { addRecipe } from "./add-recipe.api";
-import { IngredientsCategory, Image, Ingredient } from "./add-recipe.types";
+import IngredientsWithCategoryForm from "./ingredients-with-category-form/ingredients-with-category-form.component";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export type FormValues = {
   name: string;
+  description: string;
   category: string;
   ingredients: Array<IngredientsCategory>;
-  images: Array<Image>;
+  images: Array<{ url: string }>;
   content: string;
   hasCategories: boolean;
   showMarkedText: boolean;
 };
 
-const AddRecipeForm = () => {
+type Props = {
+  onSubmit: (body: FormValues) => Promise<void>;
+  initData?: FormValues;
+};
+
+const RecipeForm = ({ onSubmit, initData }: Props) => {
   const form = useForm<FormValues>({
     defaultValues: {
       hasCategories: false,
@@ -30,34 +37,27 @@ const AddRecipeForm = () => {
       images: [{ url: "" }],
     },
   });
+
   const contentWatch = form.watch("content");
   const hasCategoriesWatch = form.watch("hasCategories");
+  const navigate = useNavigate();
 
-  const onSubmit = async (body: FormValues) => {
-    const { content, name, ingredients, images } = body;
-
-    let mappedIngredients: Ingredient[] | IngredientsCategory[];
-
-    if (hasCategoriesWatch) {
-      mappedIngredients = ingredients;
+  useEffect(() => {
+    console.log(initData);
+    if (initData) {
+      form.setValue("name", initData.name);
+      form.setValue("description", initData.description);
+      form.setValue(
+        "images",
+        initData.images.map(image => ({ url: image.url }))
+      );
+      form.setValue("ingredients", initData.ingredients);
+      form.setValue("content", initData.content);
+      form.setValue("hasCategories", initData.hasCategories);
     } else {
-      mappedIngredients = ingredients
-        .map(ingredient =>
-          ingredient.items.map(item => ({
-            name: item.name,
-          }))
-        )
-        .flat();
+      form.reset();
     }
-    const resp = await addRecipe({
-      content,
-      name,
-      images,
-      ingredients: mappedIngredients,
-      tags: [],
-    });
-    console.log(resp);
-  };
+  }, [initData]);
 
   return (
     <div className='container py-6'>
@@ -67,13 +67,21 @@ const AddRecipeForm = () => {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <ThemeProvider theme={theme}>
           <div className='form-section'>
-            <h2 className='form-section-title'>Nazwa </h2>
+            <h2 className='form-section-title'>Podstawowe informacje </h2>
             <div className='form-control'>
               <TextInput
                 name='name'
                 control={form.control}
                 rules={{ required: true }}
                 label='Wpisz nazwę przepisu'
+              />
+            </div>
+            <div className='form-control'>
+              <TextInput
+                name='description'
+                control={form.control}
+                rules={{ required: false }}
+                label='Wpisz krótki opis przepisu'
               />
             </div>
           </div>
@@ -108,7 +116,13 @@ const AddRecipeForm = () => {
               </Button>
             </div>
             <div>
-              <Button variant='outlined'>Anuluj</Button>
+              <Button
+                onClick={() => {
+                  navigate("/");
+                }}
+                variant='outlined'>
+                Anuluj
+              </Button>
             </div>
           </div>
         </ThemeProvider>
@@ -117,4 +131,4 @@ const AddRecipeForm = () => {
   );
 };
 
-export default AddRecipeForm;
+export default RecipeForm;
