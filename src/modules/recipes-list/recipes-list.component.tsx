@@ -21,7 +21,6 @@ const RecipesList = () => {
     setRecipes(newRecipes);
     setHasMore(recipes.length !== resp.total);
     setPage(resp.page + 1);
-    console.log(resp);
   };
   return (
     <InfiniteScroll
@@ -36,7 +35,7 @@ const RecipesList = () => {
         <div key={recipe.id}>
           <RecipeCart
             name={recipe.name}
-            imageUrl={recipe.images[0].base64}
+            imageUrl={recipe.images[0].name}
             id={recipe.id}
           />
         </div>

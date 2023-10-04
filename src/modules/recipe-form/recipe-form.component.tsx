@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@emotion/react";
 import Button from "@mui/material/Button";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { Checkbox, FormControlLabel } from "@mui/material";
 
 import TextInput from "../../common/components/text-input";
@@ -11,7 +11,7 @@ import IngredientsForm from "./ingredient-form/ingredients-form.component";
 import ContentForm from "./content-form/content-form.component";
 import IngredientsWithCategoryForm from "./ingredients-with-category-form/ingredients-with-category-form.component";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { ChangeEvent, useEffect } from "react";
 
 export type FormValues = {
   name: string;
@@ -26,7 +26,7 @@ export type FormValues = {
 
 type Props = {
   onSubmit: (body: FormValues) => Promise<void>;
-  initData?: FormValues;
+  initData?: Recipe;
 };
 
 const RecipeForm = ({ onSubmit, initData }: Props) => {
@@ -42,6 +42,8 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
   const hasCategoriesWatch = form.watch("hasCategories");
   const navigate = useNavigate();
 
+  console.log(hasCategoriesWatch);
+
   useEffect(() => {
     console.log(initData);
     if (initData) {
@@ -49,11 +51,11 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
       form.setValue("description", initData.description);
       form.setValue(
         "images",
-        initData.images.map(image => ({ url: image.url }))
+        initData.images.map(image => ({ url: image.name }))
       );
       form.setValue("ingredients", initData.ingredients);
       form.setValue("content", initData.content);
-      form.setValue("hasCategories", initData.hasCategories);
+      form.setValue("hasCategories", initData.hasIngredientCategories);
     } else {
       form.reset();
     }
@@ -89,9 +91,22 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
           <div className='flex-col form-section'>
             <h2 className='form-section-title'>Składniki</h2>
             <div className='mb-4'>
-              <FormControlLabel
-                control={<Checkbox {...form.register("hasCategories")} />}
-                label='Podział na kategorie'
+              <Controller
+                name='hasCategories'
+                control={form.control}
+                render={({ field }) => (
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                          field.onChange(e.target.checked)
+                        }
+                        checked={field.value}
+                      />
+                    }
+                    label='Podział na kategorie'
+                  />
+                )}
               />
             </div>
             {hasCategoriesWatch ? (

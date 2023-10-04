@@ -28,7 +28,7 @@ const RecipeDetails = () => {
           <div
             className='w-full h-96 bg-no-repeat bg-cover bg-center rounded shadow-lg'
             style={{
-              backgroundImage: `url("${recipe?.images[0].base64}")`,
+              backgroundImage: `url(${process.env.REACT_APP_IMAGES_URL}${recipe?.images[0].name})`,
             }}
           />
           <div className='flex flex-col md:flex-row justify-between md:items-center'>

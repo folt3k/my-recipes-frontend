@@ -24,7 +24,9 @@ const RecipeCart = ({ name, imageUrl, id }: Props) => {
         <CardMedia component='div'>
           <div
             className='w-full h-56 bg-no-repeat bg-cover bg-center'
-            style={{ backgroundImage: `url("${imageUrl}")` }}
+            style={{
+              backgroundImage: `url("${process.env.REACT_APP_IMAGES_URL}${imageUrl}")`,
+            }}
           />
         </CardMedia>
         <CardContent className='text-bold'>

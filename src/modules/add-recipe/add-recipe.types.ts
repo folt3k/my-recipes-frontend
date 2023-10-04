@@ -8,7 +8,7 @@ export type IngredientsCategory = {
 };
 
 export type Image = {
-  base64: string;
+  name: string;
 };
 
 export type Recipe = {
@@ -20,4 +20,5 @@ export type Recipe = {
   name: string;
   description: string;
   updatedAt: string;
+  hasIngredientCategories: boolean;
 };
