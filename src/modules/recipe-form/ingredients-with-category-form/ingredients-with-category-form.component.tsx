@@ -28,7 +28,6 @@ const IngredientsWithCategoryForm = ({ form, initIngreadients }: Props) => {
             <div className='mb-4 p-3  bg-gray rounded-lg'>
               <div className='flex items-center justify-end mb-2'>
                 <IconButton
-                  tabIndex={-1}
                   onClick={() => {
                     remove(index);
                   }}
@@ -59,7 +58,6 @@ const IngredientsWithCategoryForm = ({ form, initIngreadients }: Props) => {
       </div>
       <div>
         <Button
-          tabIndex={-1}
           onClick={() => {
             append({ name: "", items: [] });
           }}

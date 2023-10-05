@@ -8,7 +8,13 @@ interface ThemeOptions {
 }
 
 export const theme: ThemeOptions = createTheme({
+  typography: {
+    fontFamily: "Poppins",
+  },
   palette: {
+    text: {
+      primary: "#424242",
+    },
     primary: {
       main: "#91ab5d",
       contrastText: "#fff",
