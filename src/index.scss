@@ -4,17 +4,15 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  width: 100vw;
+  color: #424242;
 }
 
 #root {
-  height: 100%;
+  //height: 100%; czy to jest potrzebne?
 }
 
 .App {
@@ -38,6 +36,16 @@ body {
   line-height: 22px;
 }
 
+@layer base {
+  .MuiButtonBase-root.MuiButton-root {
+    @apply normal-case shadow-md;
+  }
+
+  .MuiPaper-root.MuiCard-root {
+    @apply shadow-lg mx-1;
+  }
+}
+
 @layer components {
   .markdown-wrapper {
     @apply whitespace-pre-wrap break-words;
@@ -47,11 +55,11 @@ body {
     }
 
     h1 {
-      @apply font-bold text-center uppercase bg-gray py-2;
+      @apply font-extrabold text-center uppercase bg-gray py-2;
     }
 
     h2 {
-      @apply font-bold uppercase;
+      @apply font-extrabold uppercase;
     }
   }
 
@@ -60,7 +68,7 @@ body {
   }
 
   .form-section {
-    @apply mb-16 rounded-md bg-gray-lighter p-6;
+    @apply mb-8 rounded-md bg-gray-lighter p-6;
   }
 
   .form-section-title {

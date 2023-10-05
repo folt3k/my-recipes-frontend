@@ -21,10 +21,13 @@ module.exports = {
     container: {
       center: true,
       padding: "1rem",
+      screens: {
+        "2xl": "1200px",
+      },
     },
     colors: {
       primary: "#91ab5d",
-      primary600: "#3c5031",
+      primary600: "#6f873f",
       secondary: "#efebe1",
       white: "#ffffff",
       red: "#A33C32",
@@ -42,6 +45,10 @@ module.exports = {
       serif: ["Merriweather", "serif"],
       montserrat: ["Montserrat", "sans-serif"],
       qwitcher: ["Qwitcher Grypen", "cursive"],
+    },
+    fontWeight: {
+      bold: 500,
+      extrabold: 600,
     },
     extend: {
       spacing: {

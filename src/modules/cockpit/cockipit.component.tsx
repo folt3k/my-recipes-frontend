@@ -7,15 +7,17 @@ import Home from "../home/home.component";
 
 const Cockpit = () => {
   return (
-    <div className='h-full'>
+    <div className="h-full">
       <Header />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/add-recipe' element={<AddRecipe />} />
-        <Route path='/edit-recipe/:recipeId' element={<EditRecipe />} />
+      <div className="pb-5 pt-8 lg:pt-14">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/add-recipe" element={<AddRecipe />} />
+          <Route path="/edit-recipe/:recipeId" element={<EditRecipe />} />
 
-        <Route path='/recipes/:recipeId' element={<RecipeDetailsPage />} />
-      </Routes>
+          <Route path="/recipes/:recipeId" element={<RecipeDetailsPage />} />
+        </Routes>
+      </div>
     </div>
   );
 };

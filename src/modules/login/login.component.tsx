@@ -1,11 +1,10 @@
-import { Button, ThemeProvider } from "@mui/material";
+import { Button } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import TextInput from "../../common/components/text-input";
-import { theme } from "../../common/utils/theme-for-provider";
 import { login } from "./login.api";
 import Snackbar from "../../common/components/snackbar";
 
@@ -56,17 +55,15 @@ const Login = () => {
     <div className='bg-[url("../public/img/login-bg.png")] bg-cover bg-center h-screen w-screen'>
       <div className='container h-screen flex items-center justify-center '>
         <div className='bg-white w-full max-w-[500px] h-auto flex flex-col items-center justify-center bg-red-200 rounded-2xl shadow-2xl shadow-gray-700 p-5'>
-          <h1 className='text-primary600 text-6xl font-bold font-qwitcher pb-4'>
-            My Recipes
+          <h1 className='text-primary600 text-2xl font-bold pb-1'>
+            Logowanie
           </h1>
-          <h2 className='text-2xl font-montserrat pb-2'>Zaloguj się</h2>
-          <p className='text-black text-sm pb-2'>
+          <p className='text-black text-sm pb-2 text-gray-dark'>
             Pomysły kulinarne bez końca?
           </p>
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className='flex flex-col w-full'>
-            <ThemeProvider theme={theme}>
+            className='flex flex-col w-full mt-3'>
               <div className='my-3'>
                 <TextInput
                   name='login'
@@ -93,7 +90,6 @@ const Login = () => {
                 variant='contained'>
                 Zaloguj się
               </Button>
-            </ThemeProvider>
           </form>
         </div>
       </div>

@@ -6,6 +6,8 @@ import LoginPage from "./pages/login.page";
 import "./App.scss";
 import { useEffect } from "react";
 import Cockpit from "./modules/cockpit/cockipit.component";
+import { ThemeProvider } from "@mui/material";
+import { theme } from "./common/utils/theme-for-provider";
 
 const queryClient = new QueryClient();
 
@@ -21,12 +23,14 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className='App'>
-        <Routes>
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='*' element={<Cockpit />} />
-        </Routes>
-      </div>
+      <ThemeProvider theme={theme}>
+        <div className="App">
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="*" element={<Cockpit />} />
+          </Routes>
+        </div>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

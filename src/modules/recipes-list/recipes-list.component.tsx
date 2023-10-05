@@ -24,19 +24,21 @@ const RecipesList = () => {
   };
   return (
     <InfiniteScroll
-      className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 py-5'
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 py-5"
       next={() => {
         getData(true);
       }}
       dataLength={recipes.length}
       hasMore={hasMore}
-      loader={<p>Ładowanie...</p>}>
-      {recipes?.map(recipe => (
+      loader={<p>Ładowanie...</p>}
+    >
+      {recipes?.map((recipe) => (
         <div key={recipe.id}>
           <RecipeCart
             name={recipe.name}
-            imageUrl={recipe.images[0].name}
+            imageUrl={recipe.images[0]?.name}
             id={recipe.id}
+            description={recipe.description}
           />
         </div>
       ))}
