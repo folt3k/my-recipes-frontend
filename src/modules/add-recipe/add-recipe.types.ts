@@ -13,6 +13,7 @@ export type NewImage = {
 
 export type UploadedImage = {
   id: string;
+  name: string;
 };
 
 export type UpsertImages = {
@@ -43,5 +44,5 @@ export type UpsertRecipe = {
   ingredients: Ingredient[] | IngredientsCategory[];
   name: string;
   description: string;
-  tags: any[];
+  tags?: any[];
 };

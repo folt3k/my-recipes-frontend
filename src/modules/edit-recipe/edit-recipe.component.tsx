@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate, useNavigation } from "react-router-dom";
 import { Recipe } from "../add-recipe/add-recipe.types";
 import { getRecipeDetails } from "../recipe-details/recipe-details.api";
 import RecipeForm, { FormValues } from "../recipe-form/recipe-form.component";
+import { editRecipe } from "./edit-recipe.api";
 
 const EditRecipe = () => {
   const [initData, setInitData] = useState<Recipe>();
+  const navigate = useNavigate();
   const location = useLocation();
   const id = location.pathname.slice(13);
 
@@ -19,16 +21,12 @@ const EditRecipe = () => {
     setInitData(resp);
   };
 
-  const onSubmit = () => {};
+  const onSubmit = async (body: FormValues) => {
+    await editRecipe(initData!.id, body);
+    navigate(`/recipes/${initData!.id}`);
+  };
 
-  return (
-    <RecipeForm
-      initData={initData && initData}
-      onSubmit={function (body: FormValues): Promise<void> {
-        throw new Error("Function not implemented.");
-      }}
-    />
-  );
+  return <RecipeForm initData={initData && initData} onSubmit={onSubmit} />;
 };
 
 export default EditRecipe;

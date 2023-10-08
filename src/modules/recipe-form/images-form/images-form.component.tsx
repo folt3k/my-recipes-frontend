@@ -19,12 +19,19 @@ const ImagesForm = React.forwardRef(({ form }: Props) => {
     },
   });
 
-  const { fields, append, remove } = useFieldArray({
+  const {
+    fields: newImagesFields,
+    append,
+    remove: removeNewImage,
+  } = useFieldArray({
     control: form.control,
     name: "images.new",
   });
 
-  console.log(fields);
+  const { remove: removeUploadedImage } = useFieldArray({
+    control: form.control,
+    name: "images.uploaded",
+  });
 
   const uploadImage = (body: { imageUrl: string }) => {
     append({ url: body.imageUrl });
@@ -36,8 +43,25 @@ const ImagesForm = React.forwardRef(({ form }: Props) => {
       <h2 className='form-section-title'>Zdjęcia</h2>
       <div className=''>
         <div>
-          {fields.map((field, index) => {
-            return <ImageView image={{ url: field.url }} />;
+          {form.getValues().images.uploaded.map((image, index) => (
+            <ImageView
+              image={{
+                url: `${process.env.REACT_APP_IMAGES_URL}${image.name}`,
+              }}
+              onDelete={() => {
+                removeUploadedImage(index);
+              }}
+            />
+          ))}
+          {newImagesFields.map((field, index) => {
+            return (
+              <ImageView
+                image={{ url: field.url }}
+                onDelete={() => {
+                  removeNewImage(index);
+                }}
+              />
+            );
           })}
         </div>
         <div>
