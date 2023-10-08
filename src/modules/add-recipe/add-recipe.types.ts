@@ -44,5 +44,5 @@ export type UpsertRecipe = {
   ingredients: Ingredient[] | IngredientsCategory[];
   name: string;
   description: string;
-  tags?: any[];
+  tags: any[];
 };

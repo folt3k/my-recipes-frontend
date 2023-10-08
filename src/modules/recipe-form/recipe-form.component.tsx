@@ -4,7 +4,6 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 
 import TextInput from "../../common/components/text-input";
 import {
-  Ingredient,
   IngredientsCategory,
   Recipe,
   UpsertImages,
@@ -77,6 +76,7 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
         : ingredients[0].items.map(item => ({
             name: item.name,
           })),
+      tags: [],
     };
   };
 
