@@ -52,9 +52,7 @@ const IngredientsForm = ({ form, categoryIndex }: Props) => {
           </div>
         );
       })}
-      <Button
-        onClick={() => append({ name: "" })}
-        variant='contained'>
+      <Button onClick={() => append({ name: "" })} variant='contained'>
         Dodaj składnik
       </Button>
     </div>

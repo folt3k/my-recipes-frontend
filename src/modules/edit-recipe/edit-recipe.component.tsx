@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useNavigation } from "react-router-dom";
-import { Recipe } from "../add-recipe/add-recipe.types";
+import {
+  Ingredient,
+  IngredientsCategory,
+  Recipe,
+} from "../add-recipe/add-recipe.types";
 import { getRecipeDetails } from "../recipe-details/recipe-details.api";
 import RecipeForm, { FormValues } from "../recipe-form/recipe-form.component";
 import { editRecipe } from "./edit-recipe.api";
@@ -22,7 +26,25 @@ const EditRecipe = () => {
   };
 
   const onSubmit = async (body: FormValues) => {
-    await editRecipe(initData!.id, body);
+    const { content, name, ingredients, images, description, hasCategories } =
+      body;
+    let mappedIngredients: Ingredient[] | IngredientsCategory[];
+
+    if (hasCategories) {
+      mappedIngredients = ingredients;
+    } else {
+      mappedIngredients = ingredients[0].items.map(item => ({
+        name: item.name,
+      }));
+    }
+    await editRecipe(initData!.id, {
+      content,
+      name,
+      description,
+      images,
+      ingredients: mappedIngredients,
+      tags: [],
+    });
     navigate(`/recipes/${initData!.id}`);
   };
 

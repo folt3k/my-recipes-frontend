@@ -31,7 +31,7 @@ export type Recipe = {
   createdAt: string;
   id: string;
   images: Image[];
-  ingredients: IngredientsCategory[];
+  ingredients: Ingredient[] | IngredientsCategory[];
   name: string;
   description: string;
   updatedAt: string;

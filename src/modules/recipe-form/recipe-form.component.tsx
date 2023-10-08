@@ -39,24 +39,23 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
       images: { new: [], uploaded: [] },
     },
   });
+  const navigate = useNavigate();
 
   const contentWatch = form.watch("content");
   const hasCategoriesWatch = form.watch("hasCategories");
-  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(form.watch());
-  }, [form.watch()]);
-
-  useEffect(() => {
-    console.log(initData);
     if (initData) {
-      form.setValue("name", initData.name);
-      form.setValue("description", initData.description);
-      form.setValue("images", { new: [], uploaded: initData.images });
-      form.setValue("ingredients", initData.ingredients);
-      form.setValue("content", initData.content);
-      form.setValue("hasCategories", initData.hasIngredientCategories);
+      form.reset({
+        name: initData.name,
+        description: initData.description,
+        content: initData.content,
+        hasCategories: initData.hasIngredientCategories,
+        ingredients: initData.hasIngredientCategories
+          ? (initData.ingredients as IngredientsCategory[])
+          : [{ name: "", items: initData.ingredients }],
+        images: { new: [], uploaded: initData.images },
+      });
     } else {
       form.reset();
     }
