@@ -7,9 +7,23 @@ export type IngredientsCategory = {
   items: Ingredient[];
 };
 
-export type Image = {
+export type NewImage = {
   name: string;
 };
+
+export type UploadedImage={
+  id:string
+};
+
+export type UpsertImages ={
+  new:NewImage[]
+  uploaded:UploadedImage[]
+};
+
+export type Image={
+  id: string;
+  name:string
+}
 
 export type Recipe = {
   content: string;
@@ -22,3 +36,12 @@ export type Recipe = {
   updatedAt: string;
   hasIngredientCategories: boolean;
 };
+
+export type UpsertRecipe={
+  content: string;
+  images: UpsertImages;
+  ingredients: Ingredient[]| IngredientsCategory[];
+  name: string;
+  description: string;
+  tags: any[]
+}

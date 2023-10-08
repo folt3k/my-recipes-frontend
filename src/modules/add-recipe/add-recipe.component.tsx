@@ -1,14 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import RecipeForm from "../recipe-form/recipe-form.component";
 import { addRecipe } from "./add-recipe.api";
-import { IngredientsCategory, Ingredient } from "./add-recipe.types";
+import { IngredientsCategory, Ingredient, UpsertImages } from "./add-recipe.types";
 
 export type FormValues = {
   name: string;
   description: string;
   category: string;
   ingredients: Array<IngredientsCategory>;
-  images: Array<{ url: string }>;
+  images: UpsertImages;
   content: string;
   hasCategories: boolean;
   showMarkedText: boolean;
@@ -40,7 +40,7 @@ const AddRecipe = () => {
       description,
       images,
       ingredients: mappedIngredients,
-      tags: [],
+      tags: [], 
     });
     const recipeId = resp.id;
     navigate(`/recipes/${recipeId}`);

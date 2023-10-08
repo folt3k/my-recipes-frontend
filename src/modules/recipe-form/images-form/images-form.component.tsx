@@ -1,5 +1,5 @@
 import { Button, IconButton } from "@mui/material";
-import { useFieldArray, UseFormReturn } from "react-hook-form";
+import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
 import TextInput from "../../../common/components/text-input";
 import ClearIcon from "@mui/icons-material/Clear";
 
@@ -13,16 +13,33 @@ type Props = {
 };
 
 const ImagesForm = React.forwardRef(({ form }: Props) => {
-  const { fields, append, remove } = useFieldArray({
-    name: "images",
-    control: form.control,
+  const uploadForm = useForm<{ imageUrl: string }>({
+    defaultValues: {
+      imageUrl: "",
+    },
   });
 
+  const uploadImage = (body: any) => {
+    console.log(body);
+  };
+
   return (
-    <div className="flex-col  form-section">
-      <h2 className="form-section-title">Zdjęcia</h2>
+    <div className='flex-col  form-section'>
+      <h2 className='form-section-title'>Zdjęcia</h2>
       <div className="grid grid-cols-1 lg:grid-cols-2  gap-x-5 items-center'">
-        {fields.map((field, index) => {
+        <TextInput
+          {...uploadForm.register("imageUrl")}
+          rules={{ required: false }}
+          control={uploadForm.control}
+          label='Wpisz adres url zdjęcia'
+        />
+        <Button
+          type='submit'
+          onClick={uploadForm.handleSubmit(uploadImage)}
+          variant='contained'>
+          Wczytaj
+        </Button>
+        {/* {fields.map((field, index) => {
           const image = form.watch("images").find((_, i) => i === index);
           return (
             <div
@@ -52,17 +69,17 @@ const ImagesForm = React.forwardRef(({ form }: Props) => {
               </IconButton>
             </div>
           );
-        })}
+        })} */}
       </div>
-      <div className="flex mb-4">
-        <Button
+      <div className='flex mb-4'>
+        {/* <Button
           onClick={() => {
             append({ url: "" });
           }}
           variant="contained"
         >
           Dodaj url zdjęcia
-        </Button>
+        </Button> */}
       </div>
     </div>
   );
