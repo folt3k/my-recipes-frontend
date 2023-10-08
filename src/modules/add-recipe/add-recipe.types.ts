@@ -8,22 +8,22 @@ export type IngredientsCategory = {
 };
 
 export type NewImage = {
+  url: string;
+};
+
+export type UploadedImage = {
+  id: string;
+};
+
+export type UpsertImages = {
+  new: NewImage[];
+  uploaded: UploadedImage[];
+};
+
+export type Image = {
+  id: string;
   name: string;
 };
-
-export type UploadedImage={
-  id:string
-};
-
-export type UpsertImages ={
-  new:NewImage[]
-  uploaded:UploadedImage[]
-};
-
-export type Image={
-  id: string;
-  name:string
-}
 
 export type Recipe = {
   content: string;
@@ -37,11 +37,11 @@ export type Recipe = {
   hasIngredientCategories: boolean;
 };
 
-export type UpsertRecipe={
+export type UpsertRecipe = {
   content: string;
   images: UpsertImages;
-  ingredients: Ingredient[]| IngredientsCategory[];
+  ingredients: Ingredient[] | IngredientsCategory[];
   name: string;
   description: string;
-  tags: any[]
-}
+  tags: any[];
+};

@@ -19,27 +19,41 @@ const ImagesForm = React.forwardRef(({ form }: Props) => {
     },
   });
 
-  const uploadImage = (body: any) => {
-    console.log(body);
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: "images.new",
+  });
+
+  console.log(fields);
+
+  const uploadImage = (body: { imageUrl: string }) => {
+    append({ url: body.imageUrl });
+    uploadForm.reset();
   };
 
   return (
     <div className='flex-col  form-section'>
       <h2 className='form-section-title'>Zdjęcia</h2>
-      <div className="grid grid-cols-1 lg:grid-cols-2  gap-x-5 items-center'">
-        <TextInput
-          {...uploadForm.register("imageUrl")}
-          rules={{ required: false }}
-          control={uploadForm.control}
-          label='Wpisz adres url zdjęcia'
-        />
-        <Button
-          type='submit'
-          onClick={uploadForm.handleSubmit(uploadImage)}
-          variant='contained'>
-          Wczytaj
-        </Button>
-        {/* {fields.map((field, index) => {
+      <div className=''>
+        <div>
+          {fields.map((field, index) => {
+            return <ImageView image={{ url: field.url }} />;
+          })}
+        </div>
+        <div>
+          <TextInput
+            {...uploadForm.register("imageUrl")}
+            rules={{ required: false }}
+            control={uploadForm.control}
+            label='Wpisz adres url zdjęcia'
+          />
+          <Button
+            type='submit'
+            onClick={uploadForm.handleSubmit(uploadImage)}
+            variant='contained'>
+            Wczytaj
+          </Button>
+          {/* {fields.map((field, index) => {
           const image = form.watch("images").find((_, i) => i === index);
           return (
             <div
@@ -70,16 +84,7 @@ const ImagesForm = React.forwardRef(({ form }: Props) => {
             </div>
           );
         })} */}
-      </div>
-      <div className='flex mb-4'>
-        {/* <Button
-          onClick={() => {
-            append({ url: "" });
-          }}
-          variant="contained"
-        >
-          Dodaj url zdjęcia
-        </Button> */}
+        </div>
       </div>
     </div>
   );

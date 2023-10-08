@@ -44,7 +44,9 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
   const hasCategoriesWatch = form.watch("hasCategories");
   const navigate = useNavigate();
 
-  console.log(hasCategoriesWatch);
+  useEffect(() => {
+    console.log(form.watch());
+  }, [form.watch()]);
 
   useEffect(() => {
     console.log(initData);
