@@ -4,9 +4,11 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 
 import TextInput from "../../common/components/text-input";
 import {
+  Ingredient,
   IngredientsCategory,
   Recipe,
   UpsertImages,
+  UpsertRecipe,
 } from "../add-recipe/add-recipe.types";
 import ImagesForm from "./images-form/images-form.component";
 import IngredientsForm from "./ingredient-form/ingredients-form.component";
@@ -27,7 +29,7 @@ export type FormValues = {
 };
 
 type Props = {
-  onSubmit: (body: FormValues) => Promise<void>;
+  onSubmit: (body: UpsertRecipe) => Promise<void>;
   initData?: Recipe;
 };
 
@@ -60,6 +62,23 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
       form.reset();
     }
   }, [initData]);
+
+  const getMappedFormValues = (values: FormValues): UpsertRecipe => {
+    const { content, name, ingredients, images, description, hasCategories } =
+      values;
+
+    return {
+      name,
+      content,
+      images,
+      description,
+      ingredients: hasCategories
+        ? ingredients
+        : ingredients[0].items.map(item => ({
+            name: item.name,
+          })),
+    };
+  };
 
   return (
     <div className='container'>
@@ -124,7 +143,9 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
             <Button
               variant='contained'
               onClick={() => {
-                form.handleSubmit(onSubmit)();
+                form.handleSubmit(values =>
+                  onSubmit(getMappedFormValues(values))
+                )();
               }}>
               Zapisz
             </Button>
