@@ -29,10 +29,11 @@ const Login = () => {
 
   const navigate = useNavigate();
   const { control, handleSubmit } = useForm<FormValues>();
-  const { mutate, isSuccess } = useMutation(login, {
+  const { mutate } = useMutation(login, {
     onSuccess: data => {
       const token = data.token;
       localStorage.setItem("token", token);
+      navigate("/");
     },
     onError: (error: ApiError) => {
       if (error.response.data.statusCode === 401) {
@@ -45,9 +46,6 @@ const Login = () => {
   });
 
   const onSubmit = (body: FormValues) => {
-    if (isSuccess) {
-      navigate("/");
-    }
     mutate(body);
   };
 
