@@ -4,7 +4,7 @@
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
@@ -27,7 +27,15 @@ body {
   margin: 0 !important;
 }
 
-.css-1ri6ub7-MuiPaper-root-MuiCard-root {
+.MuiButtonBase-root {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+  flex-direction: column;
+}
+
+.MuiCardMedia-root {
+  height: 70%;
   width: 100%;
 }
 

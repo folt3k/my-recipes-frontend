@@ -18,25 +18,25 @@ const RecipeCart = ({ name, imageUrl, id, description }: Props) => {
   const navigate = useNavigate();
   return (
     <Card
+      className='h-[400px] '
       onClick={() => {
         navigate(`recipes/${id}`);
-      }}
-    >
-      <CardActionArea>
-        <CardMedia component="div">
+      }}>
+      <CardActionArea className='h-full d-flex justify-between items-stretch'>
+        <CardMedia component='div'>
           <div
-            className="w-full h-56 bg-no-repeat bg-cover bg-center"
+            className='w-full h-full bg-no-repeat bg-cover bg-center'
             style={{
               backgroundImage: `url("${process.env.REACT_APP_IMAGES_URL}${imageUrl}")`,
             }}
           />
         </CardMedia>
-        <CardContent className="text-bold">
-          <Typography gutterBottom variant="h6" component="div">
+        <CardContent className='text-bold h-[30%]'>
+          <Typography gutterBottom variant='h6' component='div'>
             {name}
           </Typography>
           {description && (
-            <span className="text-gray-dark">{description}</span>
+            <span className='text-gray-dark break-words'>{description}</span>
           )}
         </CardContent>
       </CardActionArea>
