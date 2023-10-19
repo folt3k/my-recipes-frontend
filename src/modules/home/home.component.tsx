@@ -2,8 +2,6 @@ import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import RecipesList from "../recipes-list/recipes-list.component";
 
-type Props = {};
-
 const Home = () => {
   const navigate = useNavigate();
 

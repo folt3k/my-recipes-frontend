@@ -1,18 +1,16 @@
-import { Button, IconButton } from "@mui/material";
+import { Button } from "@mui/material";
 import { useFieldArray, useForm, UseFormReturn } from "react-hook-form";
 import TextInput from "../../../common/components/text-input";
-import ClearIcon from "@mui/icons-material/Clear";
 
 import { FormValues } from "../../add-recipe/add-recipe.component";
 import ImageView from "./image-view/image-view.component";
-import { AddInputOnEnterEvent } from "../../../common/helpers/add-input-on-enter";
 import React from "react";
 
 type Props = {
   form: UseFormReturn<FormValues, any, any>;
 };
 
-const ImagesForm = React.forwardRef(({ form }: Props) => {
+const ImagesForm = ({ form }: Props) => {
   const uploadForm = useForm<{ imageUrl: string }>({
     defaultValues: {
       imageUrl: "",
@@ -39,12 +37,13 @@ const ImagesForm = React.forwardRef(({ form }: Props) => {
   };
 
   return (
-    <div className='flex-col  form-section'>
-      <h2 className='form-section-title'>Zdjęcia</h2>
-      <div className=''>
+    <div className="flex-col  form-section">
+      <h2 className="form-section-title">Zdjęcia</h2>
+      <div className="">
         <div>
           {form.getValues().images.uploaded.map((image, index) => (
             <ImageView
+              key={index}
               image={{
                 url: `${process.env.REACT_APP_IMAGES_URL}${image.name}`,
               }}
@@ -56,6 +55,7 @@ const ImagesForm = React.forwardRef(({ form }: Props) => {
           {newImagesFields.map((field, index) => {
             return (
               <ImageView
+                key={index}
                 image={{ url: field.url }}
                 onDelete={() => {
                   removeNewImage(index);
@@ -66,52 +66,22 @@ const ImagesForm = React.forwardRef(({ form }: Props) => {
         </div>
         <div>
           <TextInput
-            {...uploadForm.register("imageUrl")}
+            name="imageUrl"
             rules={{ required: false }}
             control={uploadForm.control}
-            label='Wpisz adres url zdjęcia'
+            label="Wpisz adres url zdjęcia"
           />
           <Button
-            type='submit'
+            type="submit"
             onClick={uploadForm.handleSubmit(uploadImage)}
-            variant='contained'>
+            variant="contained"
+          >
             Wczytaj
           </Button>
-          {/* {fields.map((field, index) => {
-          const image = form.watch("images").find((_, i) => i === index);
-          return (
-            <div
-              key={field.id}
-              onKeyDown={(event) => {
-                AddInputOnEnterEvent(event, () => {
-                  append({ url: "" });
-                });
-              }}
-              className="flex items-center justify-center mb-4"
-            >
-              <TextInput
-                {...form.register(`images.${index}.url` as const)}
-                rules={{ required: true }}
-                control={form.control}
-                label="Wpisz adres url zdjęcia"
-              />
-              {image?.url && <ImageView image={image} />}
-              <IconButton
-                onClick={() => {
-                  remove(index);
-                }}
-                className="flex items-center justify-center m-1  "
-                color="secondary"
-              >
-                <ClearIcon />
-              </IconButton>
-            </div>
-          );
-        })} */}
         </div>
       </div>
     </div>
   );
-});
+};
 
 export default ImagesForm;

@@ -6,7 +6,6 @@ import TextInput from "../../../common/components/text-input";
 import { FormValues } from "../../add-recipe/add-recipe.component";
 import IngredientsForm from "../ingredient-form/ingredients-form.component";
 import { AddInputOnEnterEvent } from "../../../common/helpers/add-input-on-enter";
-import { useEffect } from "react";
 import { IngredientsCategory } from "../../add-recipe/add-recipe.types";
 
 type Props = {
@@ -21,34 +20,36 @@ const IngredientsWithCategoryForm = ({ form, initIngreadients }: Props) => {
   });
 
   return (
-    <div className='flex-col mb-2'>
+    <div className="flex-col mb-2">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 items-center'">
         {fields.map((field, index) => {
           return (
-            <div className='mb-4 p-3  bg-gray rounded-lg'>
-              <div className='flex items-center justify-end mb-2'>
+            <div className="mb-4 p-3  bg-gray rounded-lg">
+              <div className="flex items-center justify-end mb-2">
                 <IconButton
                   onClick={() => {
                     remove(index);
                   }}
-                  className='flex items-center justify-center m-1  '
-                  color='secondary'>
+                  className="flex items-center justify-center m-1  "
+                  color="secondary"
+                >
                   <ClearIcon />
                 </IconButton>
               </div>
               <div
-                onKeyDown={event => {
+                onKeyDown={(event) => {
                   AddInputOnEnterEvent(event, () => {
                     append({ name: "", items: [] });
                   });
                 }}
                 key={field.id}
-                className='flex items-center justify-center mb-4'>
+                className="flex items-center justify-center mb-4"
+              >
                 <TextInput
                   {...form.register(`ingredients.${index}.name` as const)}
                   rules={{ required: true }}
                   control={form.control}
-                  label='Nazwa kategorii'
+                  label="Nazwa kategorii"
                 />
               </div>
               <IngredientsForm categoryIndex={index} form={form} />
@@ -61,7 +62,8 @@ const IngredientsWithCategoryForm = ({ form, initIngreadients }: Props) => {
           onClick={() => {
             append({ name: "", items: [] });
           }}
-          variant='contained'>
+          variant="contained"
+        >
           Dodaj kategorię
         </Button>
       </div>

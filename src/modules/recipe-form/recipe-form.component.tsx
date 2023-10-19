@@ -15,6 +15,7 @@ import ContentForm from "./content-form/content-form.component";
 import IngredientsWithCategoryForm from "./ingredients-with-category-form/ingredients-with-category-form.component";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent, useEffect } from "react";
+import { usePrompt } from "../../common/hooks/prompt";
 
 export type FormValues = {
   name: string;
@@ -41,9 +42,14 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
     },
   });
   const navigate = useNavigate();
-
   const contentWatch = form.watch("content");
   const hasCategoriesWatch = form.watch("hasCategories");
+
+  usePrompt(
+    process.env.NODE_ENV !== "development" &&
+      form.formState.isDirty &&
+      !form.formState.isSubmitting,
+  );
 
   useEffect(() => {
     if (initData) {
@@ -63,8 +69,7 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
   }, [initData]);
 
   const getMappedFormValues = (values: FormValues): UpsertRecipe => {
-    const { content, name, ingredients, images, description, hasCategories } =
-      values;
+    const { content, name, ingredients, images, description, hasCategories } = values;
 
     return {
       name,
@@ -73,7 +78,7 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
       description,
       ingredients: hasCategories
         ? ingredients
-        : ingredients[0].items.map(item => ({
+        : ingredients[0].items.map((item) => ({
             name: item.name,
           })),
       tags: [],
@@ -81,36 +86,34 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
   };
 
   return (
-    <div className='container'>
-      <h2 className='text-primary600 text-3xl font-semibold mb-6'>
-        Dodaj nowy przepis
-      </h2>
+    <div className="container">
+      <h2 className="text-primary600 text-3xl font-semibold mb-6">Dodaj nowy przepis</h2>
       <form>
-        <div className='form-section'>
-          <h2 className='form-section-title'>Podstawowe informacje </h2>
-          <div className='form-control'>
+        <div className="form-section">
+          <h2 className="form-section-title">Podstawowe informacje </h2>
+          <div className="form-control">
             <TextInput
-              name='name'
+              name="name"
               control={form.control}
               rules={{ required: true }}
-              label='Wpisz nazwę przepisu'
+              label="Wpisz nazwę przepisu"
             />
           </div>
-          <div className='form-control'>
+          <div className="form-control">
             <TextInput
-              name='description'
+              name="description"
               control={form.control}
               rules={{ required: false }}
-              label='Wpisz krótki opis przepisu'
+              label="Wpisz krótki opis przepisu"
             />
           </div>
         </div>
         <ImagesForm form={form} />
-        <div className='flex-col form-section'>
-          <h2 className='form-section-title'>Składniki</h2>
-          <div className='mb-4'>
+        <div className="flex-col form-section">
+          <h2 className="form-section-title">Składniki</h2>
+          <div className="mb-4">
             <Controller
-              name='hasCategories'
+              name="hasCategories"
               control={form.control}
               render={({ field }) => (
                 <FormControlLabel
@@ -122,7 +125,7 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
                       checked={field.value}
                     />
                   }
-                  label='Podział na kategorie'
+                  label="Podział na kategorie"
                 />
               )}
             />
@@ -130,23 +133,22 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
           {hasCategoriesWatch ? (
             <IngredientsWithCategoryForm form={form} />
           ) : (
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
-              <div className='p-4 bg-gray-lighter rounded-lg'>
-                <IngredientsForm form={form} categoryIndex={0} />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              <div className="bg-gray-lighter rounded-lg">
+                <IngredientsForm form={form} categoryIndex={0} showTitle={false} />
               </div>
             </div>
           )}
         </div>
         <ContentForm form={form} contentWatch={contentWatch} />
-        <div className='flex pt-3'>
-          <div className='mr-2'>
+        <div className="flex pt-3">
+          <div className="mr-2">
             <Button
-              variant='contained'
+              variant="contained"
               onClick={() => {
-                form.handleSubmit(values =>
-                  onSubmit(getMappedFormValues(values))
-                )();
-              }}>
+                form.handleSubmit((values) => onSubmit(getMappedFormValues(values)))();
+              }}
+            >
               Zapisz
             </Button>
           </div>
@@ -155,7 +157,8 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
               onClick={() => {
                 navigate("/");
               }}
-              variant='outlined'>
+              variant="outlined"
+            >
               Anuluj
             </Button>
           </div>
