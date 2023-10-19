@@ -134,8 +134,8 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
             <IngredientsWithCategoryForm form={form} />
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              <div className="p-4 bg-gray-lighter rounded-lg">
-                <IngredientsForm form={form} categoryIndex={0} />
+              <div className="bg-gray-lighter rounded-lg">
+                <IngredientsForm form={form} categoryIndex={0} showTitle={false} />
               </div>
             </div>
           )}
