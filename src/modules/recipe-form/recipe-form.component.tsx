@@ -15,7 +15,7 @@ import ContentForm from "./content-form/content-form.component";
 import IngredientsWithCategoryForm from "./ingredients-with-category-form/ingredients-with-category-form.component";
 import { useNavigate } from "react-router-dom";
 import { ChangeEvent, useEffect } from "react";
-import Prompt from "../../common/components/prompt.component";
+import { usePrompt } from "../../common/hooks/prompt";
 
 export type FormValues = {
   name: string;
@@ -42,9 +42,10 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
     },
   });
   const navigate = useNavigate();
-
   const contentWatch = form.watch("content");
   const hasCategoriesWatch = form.watch("hasCategories");
+
+  usePrompt(form.formState.isDirty && !form.formState.isSubmitting);
 
   useEffect(() => {
     if (initData) {
@@ -82,96 +83,89 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
   };
 
   return (
-    <>
-      <Prompt
-        when={form.formState.isDirty}
-        message="Masz niezapisane zmiany. Czy na pewno chcesz opuścić ten formularz?"
-      />
-
-      <div className="container">
-        <h2 className="text-primary600 text-3xl font-semibold mb-6">
-          Dodaj nowy przepis
-        </h2>
-        <form>
-          <div className="form-section">
-            <h2 className="form-section-title">Podstawowe informacje </h2>
-            <div className="form-control">
-              <TextInput
-                name="name"
-                control={form.control}
-                rules={{ required: true }}
-                label="Wpisz nazwę przepisu"
-              />
-            </div>
-            <div className="form-control">
-              <TextInput
-                name="description"
-                control={form.control}
-                rules={{ required: false }}
-                label="Wpisz krótki opis przepisu"
-              />
-            </div>
+    <div className="container">
+      <h2 className="text-primary600 text-3xl font-semibold mb-6">
+        Dodaj nowy przepis
+      </h2>
+      <form>
+        <div className="form-section">
+          <h2 className="form-section-title">Podstawowe informacje </h2>
+          <div className="form-control">
+            <TextInput
+              name="name"
+              control={form.control}
+              rules={{ required: true }}
+              label="Wpisz nazwę przepisu"
+            />
           </div>
-          <ImagesForm form={form} />
-          <div className="flex-col form-section">
-            <h2 className="form-section-title">Składniki</h2>
-            <div className="mb-4">
-              <Controller
-                name="hasCategories"
-                control={form.control}
-                render={({ field }) => (
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                          field.onChange(e.target.checked)
-                        }
-                        checked={field.value}
-                      />
-                    }
-                    label="Podział na kategorie"
-                  />
-                )}
-              />
-            </div>
-            {hasCategoriesWatch ? (
-              <IngredientsWithCategoryForm form={form} />
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                <div className="p-4 bg-gray-lighter rounded-lg">
-                  <IngredientsForm form={form} categoryIndex={0} />
-                </div>
+          <div className="form-control">
+            <TextInput
+              name="description"
+              control={form.control}
+              rules={{ required: false }}
+              label="Wpisz krótki opis przepisu"
+            />
+          </div>
+        </div>
+        <ImagesForm form={form} />
+        <div className="flex-col form-section">
+          <h2 className="form-section-title">Składniki</h2>
+          <div className="mb-4">
+            <Controller
+              name="hasCategories"
+              control={form.control}
+              render={({ field }) => (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                        field.onChange(e.target.checked)
+                      }
+                      checked={field.value}
+                    />
+                  }
+                  label="Podział na kategorie"
+                />
+              )}
+            />
+          </div>
+          {hasCategoriesWatch ? (
+            <IngredientsWithCategoryForm form={form} />
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+              <div className="p-4 bg-gray-lighter rounded-lg">
+                <IngredientsForm form={form} categoryIndex={0} />
               </div>
-            )}
-          </div>
-          <ContentForm form={form} contentWatch={contentWatch} />
-          <div className="flex pt-3">
-            <div className="mr-2">
-              <Button
-                variant="contained"
-                onClick={() => {
-                  form.handleSubmit((values) =>
-                    onSubmit(getMappedFormValues(values)),
-                  )();
-                }}
-              >
-                Zapisz
-              </Button>
             </div>
-            <div>
-              <Button
-                onClick={() => {
-                  navigate("/");
-                }}
-                variant="outlined"
-              >
-                Anuluj
-              </Button>
-            </div>
+          )}
+        </div>
+        <ContentForm form={form} contentWatch={contentWatch} />
+        <div className="flex pt-3">
+          <div className="mr-2">
+            <Button
+              variant="contained"
+              onClick={() => {
+                form.handleSubmit((values) =>
+                  onSubmit(getMappedFormValues(values)),
+                )();
+              }}
+            >
+              Zapisz
+            </Button>
           </div>
-        </form>
-      </div>
-    </>
+          <div>
+            <Button
+              onClick={() => {
+                navigate("/");
+              }}
+              variant="outlined"
+            >
+              Anuluj
+            </Button>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 };
 
