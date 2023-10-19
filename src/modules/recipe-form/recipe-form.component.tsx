@@ -45,7 +45,11 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
   const contentWatch = form.watch("content");
   const hasCategoriesWatch = form.watch("hasCategories");
 
-  usePrompt(form.formState.isDirty && !form.formState.isSubmitting);
+  usePrompt(
+    process.env.NODE_ENV !== "development" &&
+      form.formState.isDirty &&
+      !form.formState.isSubmitting,
+  );
 
   useEffect(() => {
     if (initData) {
@@ -65,8 +69,7 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
   }, [initData]);
 
   const getMappedFormValues = (values: FormValues): UpsertRecipe => {
-    const { content, name, ingredients, images, description, hasCategories } =
-      values;
+    const { content, name, ingredients, images, description, hasCategories } = values;
 
     return {
       name,
@@ -84,9 +87,7 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
 
   return (
     <div className="container">
-      <h2 className="text-primary600 text-3xl font-semibold mb-6">
-        Dodaj nowy przepis
-      </h2>
+      <h2 className="text-primary600 text-3xl font-semibold mb-6">Dodaj nowy przepis</h2>
       <form>
         <div className="form-section">
           <h2 className="form-section-title">Podstawowe informacje </h2>
@@ -145,9 +146,7 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
             <Button
               variant="contained"
               onClick={() => {
-                form.handleSubmit((values) =>
-                  onSubmit(getMappedFormValues(values)),
-                )();
+                form.handleSubmit((values) => onSubmit(getMappedFormValues(values)))();
               }}
             >
               Zapisz

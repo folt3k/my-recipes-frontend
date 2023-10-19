@@ -11,12 +11,12 @@ export const usePrompt = (when: boolean) => {
   });
 
   useEffect(() => {
-    const onBeforeUnload = (event: BeforeUnloadEvent): string => {
+    console.log(when);
+    const onBeforeUnload = (event: BeforeUnloadEvent): string | void => {
       if (when) {
         event.preventDefault();
+        return (event.returnValue = messageText);
       }
-
-      return (event.returnValue = messageText);
     };
 
     window.addEventListener("beforeunload", onBeforeUnload);

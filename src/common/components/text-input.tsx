@@ -1,8 +1,8 @@
 import { TextField } from "@mui/material";
-import { useController } from "react-hook-form";
+import { Controller } from "react-hook-form";
 
 import { BaseCustomControlProps } from "../types/form";
-import ValidateMesage from "./validation-message";
+import ValidateMessage from "./validation-message";
 
 type Props = {
   color?:
@@ -17,7 +17,7 @@ type Props = {
   multiline?: boolean;
 } & BaseCustomControlProps;
 
-export default function TextInput({
+function TextInput({
   name,
   control,
   rules,
@@ -26,30 +26,36 @@ export default function TextInput({
   color,
   type = "text",
 }: Props) {
-  const {
-    field: { onChange, value, ref },
-    fieldState: { error },
-  } = useController({
-    name,
-    control,
-    rules,
-    defaultValue: "",
-  });
   return (
-    <div className='w-full'>
-      <TextField
-        margin='normal'
-        color={color}
-        onChange={onChange}
-        value={value}
+    <div className="w-full">
+      <Controller
+        render={({
+          field: { value, onChange, ref },
+          fieldState: { error },
+        }) => (
+          <>
+            <TextField
+              margin="normal"
+              color={color}
+              onChange={onChange}
+              value={value}
+              name={name}
+              label={label}
+              type={type}
+              multiline={multiline}
+              rows={multiline ? 10 : 0}
+              inputRef={ref}
+            />
+            <ValidateMessage error={error} rules={rules} label={label} />
+          </>
+        )}
         name={name}
-        label={label}
-        type={type}
-        multiline={multiline}
-        rows={multiline ? 10 : 0}
-        inputRef={ref}
+        control={control}
+        rules={rules}
+        defaultValue=""
       />
-      <ValidateMesage error={error} rules={rules} label={label} />
     </div>
   );
 }
+
+export default TextInput;
