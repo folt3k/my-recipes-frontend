@@ -33,7 +33,7 @@ const IngredientsForm = ({ form, categoryIndex, showTitle = true }: Props) => {
               }}
             >
               <TextInput
-                {...form.register(`ingredients.${categoryIndex}.items.${index}.name` as const)}
+                name={`ingredients.${categoryIndex}.items.${index}.name` as const}
                 rules={{ required: true }}
                 control={form.control}
                 label="Nazwa składnika"

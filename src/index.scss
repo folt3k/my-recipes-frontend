@@ -53,18 +53,24 @@ body {
 
 @layer components {
   .markdown-wrapper {
-    @apply whitespace-pre-wrap break-words;
-
     ul {
       @apply list-disc ml-2;
     }
 
     h1 {
-      @apply font-extrabold text-center uppercase bg-gray py-2;
+      @apply font-extrabold text-center uppercase bg-gray py-2 mb-4;
     }
 
     h2 {
-      @apply font-extrabold uppercase;
+      @apply font-extrabold uppercase mb-3;
+    }
+
+    p {
+      @apply my-3;
+
+      &:first-child {
+        @apply mt-0;
+      }
     }
   }
 
