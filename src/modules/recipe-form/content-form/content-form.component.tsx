@@ -16,7 +16,7 @@ const ContentForm = ({ form, contentWatch }: Props) => {
   return (
     <div className="form-section">
       <h2 className="form-section-title">Sposób przygotowania</h2>
-      <div className="grid md:grid-cols-2 grid-rows-1 gap-x-2 h-auto">
+      <div className="grid md:grid-cols-2 grid-rows-1 gap-x-5 h-auto">
         <AutoSizeTextInput
           name="content"
           control={form.control}
@@ -30,7 +30,7 @@ const ContentForm = ({ form, contentWatch }: Props) => {
           />
         </div>
         <div
-          className={classNames("pt-2  md:block", {
+          className={classNames("md:block", {
             block: showMarkedText,
             hidden: !showMarkedText,
           })}

@@ -24,7 +24,7 @@ const IngredientsWithCategoryForm = ({ form, initIngreadients }: Props) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-5 items-center'">
         {fields.map((field, index) => {
           return (
-            <div className="mb-4 p-3  bg-gray rounded-lg">
+            <div key={index} className="mb-4 p-3  bg-gray rounded-lg">
               <div className="flex items-center justify-end mb-2">
                 <IconButton
                   onClick={() => {
@@ -46,7 +46,7 @@ const IngredientsWithCategoryForm = ({ form, initIngreadients }: Props) => {
                 className="flex items-center justify-center mb-4"
               >
                 <TextInput
-                  {...form.register(`ingredients.${index}.name` as const)}
+                  name={`ingredients.${index}.name` as const}
                   rules={{ required: true }}
                   control={form.control}
                   label="Nazwa kategorii"
