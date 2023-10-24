@@ -4,9 +4,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { MarkedConverter } from "../../common/components/marked-converter";
 import { IngredientsCategory, Recipe } from "../add-recipe/add-recipe.types";
 import { getRecipeDetails } from "./recipe-details.api";
+import { AxiosError } from "axios";
+import Loader from "../../common/components/loader.component";
 
 const RecipeDetails = () => {
-  const [recipe, setRecipe] = useState<Recipe>();
+  const [recipe, setRecipe] = useState<Recipe | null>();
+  const [notFound, setNotFound] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const location = useLocation();
   const id = location.pathname.slice(9);
   const navigate = useNavigate();
@@ -16,9 +20,28 @@ const RecipeDetails = () => {
   }, []);
 
   const getData = async () => {
-    const resp = await getRecipeDetails(id);
-    setRecipe(resp);
+    try {
+      const resp = await getRecipeDetails(id);
+      setRecipe(resp);
+    } catch (err) {
+      if ((err as AxiosError).response!.status === 404) {
+        setNotFound(true);
+      }
+    }
+    setLoading(false);
   };
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (notFound) {
+    return (
+      <div className="container">
+        <p>Nie znaleziono takiego przepisu.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="container">

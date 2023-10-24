@@ -25,14 +25,13 @@ const router = createBrowserRouter(
         <Route path="/add-recipe" element={<AddRecipe />} />
         <Route path="/edit-recipe/:recipeId" element={<EditRecipe />} />
         <Route path="/recipes/:recipeId" element={<RecipeDetailsPage />} />
+        <Route path="*" element={<div>404</div>} /> //TODO: Dodać stone 404
       </Route>
     </Route>,
   ),
 );
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement,
-);
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
