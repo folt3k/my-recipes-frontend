@@ -12,6 +12,10 @@ body {
   line-height: 2rem;
 }
 
+#root {
+  height: 100%;
+}
+
 .App {
   height: 100%;
 }
@@ -31,11 +35,6 @@ body {
   flex-direction: column;
 }
 
-.MuiCardMedia-root {
-  height: 70%;
-  width: 100%;
-}
-
 .autosize-textarea textarea {
   min-height: 200px;
   line-height: 22px;
@@ -48,6 +47,10 @@ body {
 
   .MuiPaper-root.MuiCard-root {
     @apply shadow-lg mx-1;
+  }
+
+  .MuiDialog-paper {
+    @apply p-1;
   }
 }
 
