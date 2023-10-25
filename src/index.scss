@@ -48,6 +48,10 @@ body {
   .MuiPaper-root.MuiCard-root {
     @apply shadow-lg mx-1;
   }
+
+  .MuiDialog-paper {
+    @apply p-1;
+  }
 }
 
 @layer components {
