@@ -17,7 +17,7 @@ const RecipeCart = ({ name, imageUrl, id, description }: Props) => {
         navigate(`recipes/${id}`);
       }}
     >
-      <CardActionArea className="h-full flex">
+      <CardActionArea className="h-full flex justify-start items-stretch flex-col">
         <div
           className="w-full flex-1 bg-no-repeat bg-cover bg-center"
           style={{

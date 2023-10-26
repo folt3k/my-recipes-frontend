@@ -5,7 +5,7 @@ const Cockpit = () => {
   return (
     <div className="flex flex-col h-full">
       <Header />
-      <div className="pb-5 pt-8 lg:pt-14 flex-1">
+      <div className="pb-5 flex-1">
         <Outlet />
       </div>
     </div>

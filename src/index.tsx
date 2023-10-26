@@ -11,17 +11,17 @@ import {
 } from "react-router-dom";
 import LoginPage from "./pages/login.page";
 import Cockpit from "./modules/cockpit/cockipit.component";
-import Home from "./modules/home/home.component";
 import AddRecipe from "./modules/add-recipe/add-recipe.component";
 import EditRecipe from "./modules/edit-recipe/edit-recipe.component";
 import RecipeDetailsPage from "./pages/recipe-details.page";
+import RecipesList from "./modules/recipes-list/recipes-list.component";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/" element={<Cockpit />}>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<RecipesList />} />
         <Route path="/add-recipe" element={<AddRecipe />} />
         <Route path="/edit-recipe/:recipeId" element={<EditRecipe />} />
         <Route path="/recipes/:recipeId" element={<RecipeDetailsPage />} />

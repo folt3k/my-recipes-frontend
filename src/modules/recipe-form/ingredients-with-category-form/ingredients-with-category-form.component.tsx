@@ -25,12 +25,12 @@ const IngredientsWithCategoryForm = ({ form, initIngreadients }: Props) => {
         {fields.map((field, index) => {
           return (
             <div key={index} className="mb-4 p-3  bg-gray rounded-lg">
-              <div className="flex items-center justify-end mb-2">
+              <div className="flex items-center justify-end">
                 <IconButton
+                    size="small"
                   onClick={() => {
                     remove(index);
                   }}
-                  className="flex items-center justify-center m-1  "
                   color="secondary"
                 >
                   <ClearIcon />
@@ -43,7 +43,7 @@ const IngredientsWithCategoryForm = ({ form, initIngreadients }: Props) => {
                   });
                 }}
                 key={field.id}
-                className="flex items-center justify-center mb-4"
+                className="flex items-center justify-center mb-3"
               >
                 <TextInput
                   name={`ingredients.${index}.name` as const}
@@ -57,7 +57,7 @@ const IngredientsWithCategoryForm = ({ form, initIngreadients }: Props) => {
           );
         })}
       </div>
-      <div>
+      <div className="mt-2">
         <Button
           onClick={() => {
             append({ name: "", items: [] });
