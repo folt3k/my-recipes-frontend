@@ -4,8 +4,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./App.scss";
 import { useEffect } from "react";
 import { ThemeProvider } from "@mui/material";
-import { theme } from "./common/utils/theme-for-provider";
 
+import { theme } from "./common/utils/theme-for-provider";
 const queryClient = new QueryClient();
 
 function App() {

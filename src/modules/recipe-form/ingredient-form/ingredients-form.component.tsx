@@ -20,12 +20,12 @@ const IngredientsForm = ({ form, categoryIndex, showTitle = true }: Props) => {
 
   return (
     <div className="flex-col mb-2">
-      {showTitle && <h4 className="mb-2 text-gray-dark">Składniki</h4>}
+      {showTitle && <h4 className="text-gray-dark">Składniki</h4>}
       {fields.map((field, index) => {
         return (
           <div key={field.id} className="flex items-center">
             <div
-              className="mb-2 w-full"
+              className="w-full"
               onKeyDown={(event) => {
                 AddInputOnEnterEvent(event, () => {
                   append({ name: "" });
@@ -53,9 +53,11 @@ const IngredientsForm = ({ form, categoryIndex, showTitle = true }: Props) => {
           </div>
         );
       })}
-      <Button onClick={() => append({ name: "" })} variant="contained">
-        Dodaj składnik
-      </Button>
+      <div className="mt-4">
+        <Button onClick={() => append({ name: "" })} variant="contained">
+          Dodaj składnik
+        </Button>
+      </div>
     </div>
   );
 };

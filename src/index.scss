@@ -2,45 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  height: 100vh;
-  color: #424242;
-  line-height: 2rem;
-}
-
-#root {
-  height: 100%;
-}
-
-.App {
-  height: 100%;
-}
-
-.MuiFormControl-root {
-  width: 100%;
-}
-
-.MuiTextField-root {
-  margin: 0 !important;
-}
-
-.MuiButtonBase-root {
-  display: flex;
-  justify-content: flex-start;
-  align-items: stretch;
-  flex-direction: column;
-}
-
-.autosize-textarea textarea {
-  min-height: 200px;
-  line-height: 22px;
-}
-
 @layer base {
+  body {
+    @apply m-0 h-[100vh] text-gray-darker font-sans leading-8;
+  }
+
+  #root {
+    @apply h-full;
+  }
+
+  .App {
+    @apply h-full;
+  }
+
   .MuiButtonBase-root.MuiButton-root {
     @apply normal-case shadow-md;
   }
@@ -51,6 +25,18 @@ body {
 
   .MuiDialog-paper {
     @apply p-1;
+  }
+
+  .MuiButton-root.MuiButton-outlined {
+    @apply shadow-none;
+  }
+
+  .MuiFormControl-root {
+    @apply w-full;
+  }
+
+  .MuiTextField-root {
+    @apply m-0;
   }
 }
 
@@ -77,15 +63,16 @@ body {
     }
   }
 
-  .form-control {
-    @apply my-4;
-  }
-
   .form-section {
-    @apply mb-8 rounded-md bg-gray-lighter p-6;
+    @apply mb-8 rounded-md bg-gray-lighter p-5;
   }
 
   .form-section-title {
     @apply mb-4 text-xl text-primary;
+  }
+
+  .autosize-textarea textarea {
+    min-height: 200px;
+    line-height: 22px;
   }
 }

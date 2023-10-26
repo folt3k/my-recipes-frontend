@@ -44,6 +44,7 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
   const navigate = useNavigate();
   const contentWatch = form.watch("content");
   const hasCategoriesWatch = form.watch("hasCategories");
+  const isEditMode = !!initData;
 
   usePrompt(
     process.env.NODE_ENV !== "development" &&
@@ -52,7 +53,7 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
   );
 
   useEffect(() => {
-    if (initData) {
+    if (isEditMode) {
       form.reset({
         name: initData.name,
         description: initData.description,
@@ -66,7 +67,7 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
     } else {
       form.reset();
     }
-  }, [initData]);
+  }, [isEditMode, initData]);
 
   const getMappedFormValues = (values: FormValues): UpsertRecipe => {
     const { content, name, ingredients, images, description, hasCategories } = values;
@@ -87,31 +88,29 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
 
   return (
     <div className="container">
-      <h2 className="text-primary600 text-3xl font-semibold mb-6">Dodaj nowy przepis</h2>
+      <h2 className="text-primary600 text-3xl font-semibold mb-6">
+        {isEditMode ? "Edytuj przepis" : "Dodaj nowy przepis"}
+      </h2>
       <form>
         <div className="form-section">
           <h2 className="form-section-title">Podstawowe informacje </h2>
-          <div className="form-control">
-            <TextInput
-              name="name"
-              control={form.control}
-              rules={{ required: true }}
-              label="Wpisz nazwę przepisu"
-            />
-          </div>
-          <div className="form-control">
-            <TextInput
-              name="description"
-              control={form.control}
-              rules={{ required: false }}
-              label="Wpisz krótki opis przepisu"
-            />
-          </div>
+          <TextInput
+            name="name"
+            control={form.control}
+            rules={{ required: true }}
+            label="Wpisz nazwę przepisu"
+          />
+          <TextInput
+            name="description"
+            control={form.control}
+            rules={{ required: false }}
+            label="Wpisz krótki opis przepisu"
+          />
         </div>
         <ImagesForm form={form} />
         <div className="flex-col form-section">
           <h2 className="form-section-title">Składniki</h2>
-          <div className="mb-4">
+          <div className="mb-2">
             <Controller
               name="hasCategories"
               control={form.control}
@@ -144,22 +143,22 @@ const RecipeForm = ({ onSubmit, initData }: Props) => {
         <div className="flex pt-3">
           <div className="mr-2">
             <Button
-              variant="contained"
-              onClick={() => {
-                form.handleSubmit((values) => onSubmit(getMappedFormValues(values)))();
-              }}
-            >
-              Zapisz
-            </Button>
-          </div>
-          <div>
-            <Button
               onClick={() => {
                 navigate("/");
               }}
               variant="outlined"
             >
               Anuluj
+            </Button>
+          </div>
+          <div>
+            <Button
+              variant="contained"
+              onClick={() => {
+                form.handleSubmit((values) => onSubmit(getMappedFormValues(values)))();
+              }}
+            >
+              Zapisz
             </Button>
           </div>
         </div>

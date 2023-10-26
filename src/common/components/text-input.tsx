@@ -1,18 +1,11 @@
-import { TextField } from "@mui/material";
+import { TextField, TextFieldProps } from "@mui/material";
 import { Controller } from "react-hook-form";
 
 import { BaseCustomControlProps } from "../types/form";
 import ValidateMessage from "./validation-message";
 
 type Props = {
-  color?:
-    | "error"
-    | "primary"
-    | "secondary"
-    | "info"
-    | "success"
-    | "warning"
-    | undefined;
+  color?: "error" | "primary" | "secondary" | "info" | "success" | "warning" | undefined;
   type?: string;
   multiline?: boolean;
 } & BaseCustomControlProps;
@@ -25,14 +18,12 @@ function TextInput({
   label,
   color,
   type = "text",
-}: Props) {
+  ...others
+}: Props & TextFieldProps) {
   return (
     <div className="w-full">
       <Controller
-        render={({
-          field: { value, onChange, ref },
-          fieldState: { error },
-        }) => (
+        render={({ field: { value, onChange, ref }, fieldState: { error } }) => (
           <>
             <TextField
               margin="normal"
@@ -45,6 +36,7 @@ function TextInput({
               multiline={multiline}
               rows={multiline ? 10 : 0}
               inputRef={ref}
+              {...others}
             />
             <ValidateMessage error={error} rules={rules} label={label} />
           </>

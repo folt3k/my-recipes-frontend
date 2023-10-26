@@ -4,6 +4,7 @@ import { Recipe, UpsertRecipe } from "../add-recipe/add-recipe.types";
 import { getRecipeDetails } from "../recipe-details/recipe-details.api";
 import RecipeForm from "../recipe-form/recipe-form.component";
 import { editRecipe } from "./edit-recipe.api";
+import {PageLayout} from "../../common/components/layout/page.component";
 
 const EditRecipe = () => {
   const [initData, setInitData] = useState<Recipe>();
@@ -24,7 +25,11 @@ const EditRecipe = () => {
     navigate(`/recipes/${initData!.id}`);
   };
 
-  return <RecipeForm initData={initData && initData} onSubmit={onSubmit} />;
+  return (
+    <PageLayout>
+      <RecipeForm initData={initData && initData} onSubmit={onSubmit} />
+    </PageLayout>
+  );
 };
 
 export default EditRecipe;
