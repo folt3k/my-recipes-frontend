@@ -21,7 +21,7 @@ const AddRecipe = () => {
   const onSubmit = async (body: UpsertRecipe) => {
     const resp = await addRecipe(body);
     const recipeId = resp.id;
-    // navigate(`/recipes/${recipeId}`);
+    navigate(`/recipes/${recipeId}`);
   };
 
   return (
