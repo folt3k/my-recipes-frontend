@@ -4,7 +4,7 @@ import { Recipe, UpsertRecipe } from "../add-recipe/add-recipe.types";
 import { getRecipeDetails } from "../recipe-details/recipe-details.api";
 import RecipeForm from "../recipe-form/recipe-form.component";
 import { editRecipe } from "./edit-recipe.api";
-import {PageLayout} from "../../common/components/layout/page.component";
+import { PageLayout } from "../../common/components/layout/page.component";
 
 const EditRecipe = () => {
   const [initData, setInitData] = useState<Recipe>();
