@@ -65,12 +65,15 @@ const RecipeDetails = () => {
     <>
       <div className="container">
         <div className="border-gray-light border-solid border-b">
-          <div
-            className="w-full h-96 bg-no-repeat bg-cover bg-center rounded shadow-lg"
-            style={{
-              backgroundImage: `url(${process.env.REACT_APP_IMAGES_URL}${recipe?.images[0]?.name})`,
-            }}
-          />
+          {!!recipe?.images.length && (
+            <div
+              className="w-full h-96 bg-no-repeat bg-cover bg-center rounded shadow-lg"
+              style={{
+                backgroundImage: `url(${process.env.REACT_APP_IMAGES_URL}${recipe?.images[0]?.name})`,
+              }}
+            />
+          )}
+
           <div className="flex flex-col md:flex-row justify-between md:items-center">
             <div>
               <h2 className="text-primary600 font-semibold text-4xl uppercase pt-6 pb-3">
@@ -95,38 +98,38 @@ const RecipeDetails = () => {
         <div className="grid grid-cols-1 md:grid-cols-[1fr,2fr] gap-5 py-4">
           <div>
             <p className="uppercase text-lg font-extrabold mb-5">Składniki</p>
-            {recipe?.ingredients.map((ingredient, index) => {
-              if ((ingredient as IngredientsCategory).items) {
-                return (
-                  <div key={index} className="mb-4">
-                    <h1 className="font-extrabold text-center uppercase bg-gray py-2 mb-3">
-                      {ingredient.name}
-                    </h1>
-                    <ul>
-                      {(ingredient as IngredientsCategory).items.map((item, i) => (
-                        <li
-                          key={i}
-                          className="py-1 leading-7 border-b border-dotted border-gray-light last:border-0"
-                        >
-                          {item.name}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                );
-              } else {
-                return (
-                  <ul>
+            <ul>
+              {recipe?.ingredients.map((ingredient, index) => {
+                if ((ingredient as IngredientsCategory).items) {
+                  return (
+                    <div key={index} className="mb-4">
+                      <h1 className="font-extrabold text-center uppercase bg-gray py-2 mb-3">
+                        {ingredient.name}
+                      </h1>
+                      <ul>
+                        {(ingredient as IngredientsCategory).items.map((item, i) => (
+                          <li
+                            key={i}
+                            className="py-1 leading-7 border-b border-dotted border-gray-light last:border-0"
+                          >
+                            {item.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                } else {
+                  return (
                     <li
                       key={index}
-                      className="py-1 leading-7 border-b border-dotted border-gray-light"
+                      className="py-1 leading-7 border-b border-dotted border-gray-light last:border-0"
                     >
                       {ingredient.name}
                     </li>
-                  </ul>
-                );
-              }
-            })}
+                  );
+                }
+              })}
+            </ul>
           </div>
           <div>
             <p className="uppercase text-lg font-extrabold mb-5">Przygotowanie</p>
