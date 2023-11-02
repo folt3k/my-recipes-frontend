@@ -39,8 +39,8 @@ const ImagesForm = ({ form }: Props) => {
   return (
     <div className="flex-col  form-section">
       <h2 className="form-section-title">Zdjęcia</h2>
-      <div className="">
-        <div>
+      <div>
+        <div className="flex">
           {form.getValues().images.uploaded.map((image, index) => (
             <ImageView
               key={index}
@@ -71,11 +71,7 @@ const ImagesForm = ({ form }: Props) => {
             control={uploadForm.control}
             label="Wpisz adres url zdjęcia"
           />
-          <Button
-            type="submit"
-            onClick={uploadForm.handleSubmit(uploadImage)}
-            variant="contained"
-          >
+          <Button type="submit" onClick={uploadForm.handleSubmit(uploadImage)} variant="contained">
             Wczytaj
           </Button>
         </div>
