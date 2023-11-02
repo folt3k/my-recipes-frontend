@@ -5,5 +5,5 @@ export const createMarkUp = (val: string) => {
     return undefined;
   }
 
-  return { __html: marked.parse(val) };
+  return { __html: marked.parse(val, { breaks: true }) };
 };
