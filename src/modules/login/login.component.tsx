@@ -30,7 +30,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { control, handleSubmit } = useForm<FormValues>();
   const { mutate } = useMutation(login, {
-    onSuccess: (data) => {
+    onSuccess: data => {
       const token = data.token;
       localStorage.setItem("token", token);
       navigate("/");
@@ -50,37 +50,44 @@ const Login = () => {
   };
 
   return (
-    <div
-      className="bg-cover bg-center h-screen w-screen"
-      style={{ backgroundImage: `url(/img/login-bg.png)` }}
-    >
-      <div className="container h-screen flex items-center justify-center ">
-        <div className="bg-white w-full max-w-[500px] h-auto flex flex-col items-center justify-center bg-red-200 rounded-2xl shadow-2xl shadow-gray-700 p-5">
-          <h1 className="text-primary600 text-2xl font-bold pb-1">Logowanie</h1>
-          <p className="text-black text-sm pb-2 text-gray-dark">Pomysły kulinarne bez końca?</p>
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-full mt-3">
-            <div className="my-3">
-              <TextInput
-                name="login"
-                control={control}
-                rules={{ required: true }}
-                label="Nazwa użytkownika"
-                color="primary"
-              />
-            </div>
-            <div className="my-3">
-              <TextInput
-                name="password"
-                color="primary"
-                type="password"
-                label="Hasło"
-                control={control}
-                rules={{ required: true }}
-              />
-            </div>
-            <Button type="submit" sx={{ mt: 2 }} color="primary" variant="contained">
-              Zaloguj się
-            </Button>
+    <div className='bg-[url("../public/img/login-bg.png")] bg-cover bg-center h-screen w-screen'>
+      <div className='container h-screen flex items-center justify-center '>
+        <div className='bg-white w-full max-w-[500px] h-auto flex flex-col items-center justify-center bg-red-200 rounded-2xl shadow-2xl shadow-gray-700 p-5'>
+          <h1 className='text-primary600 text-2xl font-bold pb-1'>
+            Logowanie
+          </h1>
+          <p className='text-black text-sm pb-2 text-gray-dark'>
+            Pomysły kulinarne bez końca?
+          </p>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className='flex flex-col w-full mt-3'>
+              <div className='my-3'>
+                <TextInput
+                  name='login'
+                  control={control}
+                  rules={{ required: true }}
+                  label='Nazwa użytkownika'
+                  color='primary'
+                />
+              </div>
+              <div className='my-3'>
+                <TextInput
+                  name='password'
+                  color='primary'
+                  type='password'
+                  label='Hasło'
+                  control={control}
+                  rules={{ required: true }}
+                />
+              </div>
+              <Button
+                type='submit'
+                sx={{ mt: 2 }}
+                color='primary'
+                variant='contained'>
+                Zaloguj się
+              </Button>
           </form>
         </div>
       </div>
