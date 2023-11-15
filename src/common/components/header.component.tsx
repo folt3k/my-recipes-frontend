@@ -7,7 +7,8 @@ const Header = () => {
     <header className="shadow-md z-10">
       <div className="container flex justify-between items-center">
         <Link to="/">
-          <h1 className="text-primary600 text-5xl font-bold font-qwitcher pl-0 p-2 cursor-pointer">
+          <h1 className="text-primary text-5xl font-bold font-qwitcher pl-0 p-2 cursor-pointer flex items-center  ">
+            <img width={54} src="/logo192.png" alt="logo" className="mr-2"/>
             My Recipes
           </h1>
         </Link>
